@@ -13,7 +13,7 @@ const Navbar: React.FC = () => {
        <div className='logo font-sans flex items-center jusitfy-center gap-2'>KOVÁCS BALÁZS <br className='md:hidden' /> <span className='hidden md:block'>-</span> GRAFIKUS.</div> 
 
        <div className='block md:hidden'>
-           <Hamburger color='#005A67' toggled={isOpen} toggle={setIsOpen} />
+           <Hamburger rounded color='#005A67' toggled={isOpen} toggle={setIsOpen} />
        </div>
 
        <ul className='hidden md:flex items-center gap-7'>
