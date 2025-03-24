@@ -52,7 +52,7 @@ const Preloader: React.FC<PreloaderTypes> = ({isVisible,setIsVisible}) => {
 
         {/* Circle Fill */}
         <motion.div
-          className="absolute top-0 left-10 w-10 h-10 bg-black rounded-full"
+          className="absolute top-0 left-10 w-10 h-10 bg-blzs-teal rounded-full"
           initial={{ x: -50, y: -50, scale: 0, opacity: 1 }}
           animate={{ scale: 30 }}
           transition={{ duration: 0.5, ease: "easeOut", delay: 0.7 }}
@@ -71,7 +71,7 @@ const Preloader: React.FC<PreloaderTypes> = ({isVisible,setIsVisible}) => {
             width={rectWidth}
             height={rectHeight}
             fill="transparent"
-            stroke="black"
+            stroke="#005A67"
             strokeWidth="10"
             strokeDasharray={perimeter}
             initial={{ strokeDashoffset: perimeter }}
