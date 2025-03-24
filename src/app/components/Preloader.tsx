@@ -46,7 +46,7 @@ const Preloader: React.FC<PreloaderTypes> = ({isVisible,setIsVisible}) => {
         animate={{ scale: 10, translateZ: 800, opacity: 0 }} // Moves toward the viewer
         transition={{ delay: 3.5, duration: 2 }}
         onAnimationComplete={handleAnimationEnd}
-        className="relative h-[440px] w-[300px] overflow-hidden"
+        className="relative scale-75 md:scale-100  h-[440px] w-[300px] overflow-hidden"
         style={{ perspective: 1000 }}
       >
 
