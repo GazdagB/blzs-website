@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import Hamburger from 'hamburger-react'
+import {motion} from "motion/react"
 
 
 const Navbar: React.FC = () => {
@@ -9,7 +10,11 @@ const Navbar: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false); 
 
   return (
-    <nav className='text-blzs-teal font-bold max-w-[1140px] py-7 w-full flex items-center justify-between px-10'>
+    <motion.nav className='text-blzs-teal font-bold max-w-[1140px] py-7 w-full flex items-center justify-between px-10'
+    initial={{y: -100, opacity: 0}}
+    animate={{ y: 0, opacity: 1}}
+    
+    >
        <div className='logo font-sans flex items-center jusitfy-center gap-2'>KOVÁCS BALÁZS <br className='md:hidden' /> <span className='hidden md:block'>-</span> GRAFIKUS.</div> 
 
        <div className='block md:hidden'>
@@ -29,7 +34,7 @@ const Navbar: React.FC = () => {
 
             <li>BLOG</li>
        </ul>
-    </nav>
+    </motion.nav>
   )
 }
 
