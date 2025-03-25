@@ -13,7 +13,6 @@ const Navbar: React.FC = () => {
     <motion.nav className='text-blzs-teal font-bold max-w-[1140px] py-7 w-full flex items-center justify-between px-10'
     initial={{y: -100, opacity: 0}}
     animate={{ y: 0, opacity: 1}}
-    
     >
        <div className='logo font-sans flex items-center jusitfy-center gap-2'>KOVÁCS BALÁZS <br className='md:hidden' /> <span className='hidden md:block'>-</span> GRAFIKUS.</div> 
 
