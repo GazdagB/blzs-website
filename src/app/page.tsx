@@ -27,26 +27,26 @@ export default function Home() {
       {!preloaderWatched && <Preloader setIsVisible={setIsVisible} isVisible={isVisible} />}
 
       {/* Logo Container */}
-      <div className="flex flex-col items-center justify-center text-center mt-20 md:mt-50 mb-36">
-        <Image src={blzsLogo} alt="BLZS Logo"/>
+      <div className="flex flex-col items-center justify-center text-center mt-5 md:mt-20 mb-20 md:mb-32 ">
+        <Image className="h-[250px] md:h-[350px]  lg:h-[520px]" src={blzsLogo} alt="BLZS Logo"/>
       </div>
 
       {/* PageNav container */}
-      <div className="flex gap-44">
+      <div className="flex flex-col lg:flex-row gap-8 md:gap-16 lg:gap-44">
 
         <div className="flex flex-col items-center ">
           <span className="font-light text-2xl tracking-[5px]">graphic</span>
-          <span className="text-6xl font-sans font-bold text-black/80">DESIGN</span>
+          <span className="text-4xl md:text-6xl  font-sans font-bold text-black/80">DESIGN</span>
         </div>
 
         <div className="flex flex-col items-center">
           <span className="font-light text-2xl tracking-[5px]">digital</span>
-          <span className="text-6xl font-sans font-bold text-black/80">ART</span>
+          <span className="text-4xl md:text-6xl font-sans font-bold text-black/80">ART</span>
         </div>
 
         <div className="flex flex-col items-center">
           <span className="font-light text-2xl tracking-[5px]">digital</span>
-          <span className="text-6xl font-sans font-bold text-black/80">PRINT</span>
+          <span className="text-4xl md:text-6xl font-sans font-bold text-black/80">PRINT</span>
         </div>
 
       </div>
