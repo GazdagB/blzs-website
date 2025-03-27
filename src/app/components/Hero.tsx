@@ -6,9 +6,9 @@ import Image from "next/image";
 
 const Hero = () => {
   return (
-    <div className='pb-30 min-h-[100svh]'>
+    <div className='pb-30 min-h-[100svh] flex flex-col items-center justify-center'>
         
-        <div className="flex flex-col items-center justify-center mt-50 text-center mb-20 md:mb-32">
+        <div className="flex flex-col items-center justify-center mt-35 md:mt-30 text-center mb-20 md:mb-32">
         <Image className="h-[250px] md:h-[330px] lg:h-[500px]" src={blzsLogo} alt="BLZS Logo" />
       </div>
 
@@ -56,7 +56,7 @@ const Hero = () => {
           >ART</motion.span>
         </motion.div>
 
-        <motion.div className="flex flex-col items-center cursor-pointer"
+        <motion.div className="flex flex-col items-center cursor-pointer z-[-1]"
         whileHover="hover"
         whileInView="happend"
         >
