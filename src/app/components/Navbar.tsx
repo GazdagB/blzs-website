@@ -56,8 +56,10 @@ const Navbar: React.FC = () => {
           <li>BLOG</li>
         </ul>
       </motion.nav>
+
+       
       <motion.div
-        className="md:hidden w-[100svw] flex flex-col items-center justify-center h-[100svh] fixed top-0 right-0 z-0 bg-white"
+        className="md:hidden w-[100svw] flex flex-col items-center justify-center h-[100vh] fixed top-0 right-0 z-0 bg-white"
         initial={{ y: "-100%" }}
         animate={isOpen ? { y: 0 } : {}}
       >
