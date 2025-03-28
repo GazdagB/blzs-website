@@ -1,5 +1,6 @@
 "use client";
 import About from "./components/About";
+import Contact from "./components/Contact";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
 import Preloader from "./components/Preloader";
@@ -28,6 +29,7 @@ export default function Home() {
       {/* Logo Container */}
       <Hero/>
       <About/>
+      <Contact/>
     </div>
   );
 }
