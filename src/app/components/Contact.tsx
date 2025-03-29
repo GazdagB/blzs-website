@@ -57,13 +57,24 @@ const Contact = () => {
 
               reset() // Resets all of the form values 
         } catch (error) {
+            console.log(error);
+
+            let errorMessage = "Valami hiba történt!";
+            
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            } else if (typeof error === "string") {
+                errorMessage = error;
+            } else {
+                errorMessage = JSON.stringify(error);
+            }
+        
             Swal.fire({
                 title: 'Hiba!',
-                text: (error.message as string) || "Valami hiba történt!",
+                text: errorMessage,
                 icon: 'error',
                 confirmButtonText: 'Cool'
-              })
-            console.log(error)
+            });
         }
         
       
