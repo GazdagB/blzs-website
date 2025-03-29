@@ -1,5 +1,5 @@
 import React from 'react'
-import { hover, motion } from "framer-motion"; 
+import {motion } from "framer-motion"; 
 
 import blzsLogo from "../assets/logo/blzs-logo.svg";
 import Image from "next/image";
