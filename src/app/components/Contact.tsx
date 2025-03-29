@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {AnimatePresence, motion } from "motion/react";
+import emailjs from '@emailjs/browser';
 
 type FormFields = {
   lastName: string;
@@ -13,6 +14,11 @@ type FormFields = {
 };
 
 const Contact = () => {
+
+    const serviceId  = process.env.NEXT_PUBLIC_SERVICE_ID || '';
+    const templateId = process.env.NEXT_PUBLIC_TEMPLATE_ID || '';
+    const publicKey = process.env.NEXT_PUBLIC_PUBLIC_KEY || "";
+
   const {
     register,
     handleSubmit,
@@ -20,8 +26,32 @@ const Contact = () => {
   } = useForm<FormFields>();
 
   const onSubmit: SubmitHandler<FormFields> =async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log(data);
+
+        const timeNow = new Date(); 
+
+        const year : number  = timeNow.getFullYear(); 
+        const month :string  = String(timeNow.getMonth() + 1).padStart(2, '0');
+        const date :string  = String(timeNow.getDate()).padStart(2, '0');
+   
+        const daysOfWeek : string[]  = ['Vasárnap', 'Hétfő', 'Kedd', 'Szerda', 'Csütörtök','Péntek','Szombat']
+        const dayOfWeek :string  = daysOfWeek[timeNow.getDay()];
+
+        const hours :string  = String(timeNow.getHours()).padStart(2,'0'); 
+        const minutes :string  = String(timeNow.getMinutes()).padStart(2,'0');
+
+        const dateString :string = `${year}.${month}.${date} ${dayOfWeek} ${hours}:${minutes}`
+
+        const dataToSend = {...data, time: dateString}
+
+        try {
+            console.log(data)
+            await emailjs.send(serviceId, templateId, dataToSend, { publicKey: publicKey });
+            
+        } catch (error) {
+            console.log(error)
+        }
+        
+      
   };
     
   return (
@@ -129,7 +159,7 @@ const Contact = () => {
               <input
                 {...register("companyName")}
                 id="company"
-                name="company"
+                name="companyName"
                 type="text"
                 autoComplete="organization"
                 className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blzs-teal"
@@ -183,8 +213,9 @@ const Contact = () => {
             <div className="mt-2.5">
               <div className="flex px-3 rounded-md bg-white outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-blzs-teal">
                 <input
+                {...register("phoneNumber")}
                   id="phone-number"
-                  name="phone-number"
+                  name="phoneNumber"
                   type="text"
                   placeholder="+36 123 456 78"
                   className="block px-5 min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
