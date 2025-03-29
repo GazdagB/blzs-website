@@ -91,17 +91,17 @@ const Contact = () => {
             </label>
             <div className="mt-2.5">
               <input
-                {...register("firstName", {
+                {...register("lastName", {
                   required: "Vezetéknév szükséges!",
                 })}
-                id="first-name"
-                name="firstName"
+                id="last-name"
+                name="lastName"
                 type="text"
-                autoComplete="given-name"
+                autoComplete="family-name"
                 className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blzs-teal"
               />
                 <AnimatePresence>
-              {errors.firstName && (
+              {errors.lastName && (
                 <motion.div
                   initial={{ opacity: 0, y: -5, height: 0 }}
                   animate={{ opacity: 1, y: 0, height: "auto" }}
@@ -109,7 +109,7 @@ const Contact = () => {
                   transition={{ duration: 0.3 }}
                   className="text-red-400 overflow-hidden"
                 >
-                  {errors.firstName.message}
+                  {errors.lastName.message}
                 </motion.div>
               )}
               </AnimatePresence>
@@ -124,17 +124,17 @@ const Contact = () => {
             </label>
             <div className="mt-2.5">
               <input
-                {...register("lastName", {
+                {...register("firstName", {
                   required: "Keresztnév szükséges!",
                 })}
-                id="last-name"
-                name="lastName"
+                id="first-name"
+                name="firtsName"
                 type="text"
-                autoComplete="family-name"
+                autoComplete="given-name"
                 className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blzs-teal"
               />
                <AnimatePresence>
-              {errors.lastName && (
+              {errors.firstName && (
                 <motion.div
                   initial={{ opacity: 0, y: -5, height: 0 }}
                   animate={{ opacity: 1, y: 0, height: "auto" }}
@@ -142,7 +142,7 @@ const Contact = () => {
                   transition={{ duration: 0.3 }}
                   className="text-red-400 overflow-hidden"
                 >
-                  {errors.lastName.message}
+                  {errors.firstName.message}
                 </motion.div>
               )}
               </AnimatePresence>
