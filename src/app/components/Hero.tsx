@@ -1,8 +1,9 @@
 import React from 'react'
-import { motion } from "framer-motion"; 
+import { hover, motion } from "framer-motion"; 
 
 import blzsLogo from "../assets/logo/blzs-logo.svg";
 import Image from "next/image";
+import Link from 'next/link';
 
 const Hero = () => {
   return (
@@ -14,7 +15,9 @@ const Hero = () => {
 
       {/* PageNav container */}
       <div className="flex flex-col lg:flex-row gap-8 md:gap-16 lg:gap-44">
-        {/* This entire div is now the hover trigger */}
+        
+        {/* Design */}
+        <Link href={"/design"}>
         <motion.div 
           className="flex flex-col items-center cursor-pointer"
           whileHover="hover"
@@ -38,7 +41,10 @@ const Hero = () => {
             DESIGN
           </motion.span>
         </motion.div>
+        </Link>
 
+        {/* Art */}
+        <Link href={"/art"}>
         <motion.div className="flex flex-col items-center cursor-pointer"
         whileHover="hover"
         >
@@ -55,25 +61,27 @@ const Hero = () => {
           transition={{type: "spring", stiffness: 120}}
           >ART</motion.span>
         </motion.div>
+        </Link>
 
-        <motion.div className="flex flex-col items-center cursor-pointer z-[-1]"
+        {/*  */}
+        <Link href={"/print"}>
+        <motion.div className="flex flex-col items-center cursor-pointer"
         whileHover="hover"
-        whileInView="happend"
         >
           <motion.span className="font-light text-2xl tracking-[5px]"
           variants={{
-            hover: {x:15},
-            
+            hover: {x:10}
           }}
           transition={{type: "spring", stiffness: 120}}
           >digital</motion.span>
           <motion.span className="text-4xl md:text-6xl font-sans font-bold text-black/80"
           variants={{
-            hover: {x:-15, color: "#005A67"}
+            hover: {x:-10, color: "#005A67"}
           }}
           transition={{type: "spring", stiffness: 120}}
           >PRINT</motion.span>
         </motion.div>
+        </Link>
 
        
       </div>
