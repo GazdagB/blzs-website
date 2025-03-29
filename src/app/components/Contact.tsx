@@ -3,6 +3,7 @@ import Image from "next/image";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {AnimatePresence, motion } from "motion/react";
 import emailjs from '@emailjs/browser';
+import Swal from 'sweetalert2'
 
 type FormFields = {
   lastName: string;
@@ -23,6 +24,7 @@ const Contact = () => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting},
+    reset
   } = useForm<FormFields>();
 
   const onSubmit: SubmitHandler<FormFields> =async (data) => {
@@ -46,8 +48,21 @@ const Contact = () => {
         try {
             console.log(data)
             await emailjs.send(serviceId, templateId, dataToSend, { publicKey: publicKey });
-            
+            Swal.fire({
+                title: "Üzenet elküldve!",
+                text: "Köszönöm az érdeklődést! Válaszolni fogok!",
+                icon: "success",
+                confirmButtonColor: "#005A67"
+              });
+
+              reset() // Resets all of the form values 
         } catch (error) {
+            Swal.fire({
+                title: 'Hiba!',
+                text: (error.message as string) || "Valami hiba történt!",
+                icon: 'error',
+                confirmButtonText: 'Cool'
+              })
             console.log(error)
         }
         
@@ -128,7 +143,7 @@ const Contact = () => {
                   required: "Keresztnév szükséges!",
                 })}
                 id="first-name"
-                name="firtsName"
+                name="firstName"
                 type="text"
                 autoComplete="given-name"
                 className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blzs-teal"
