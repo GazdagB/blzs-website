@@ -5,6 +5,7 @@ import Hamburger from "hamburger-react";
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { FaCaretDown } from "react-icons/fa";
+import { spring } from "motion";
 
 
 const Navbar: React.FC = () => {
@@ -36,7 +37,7 @@ const Navbar: React.FC = () => {
           <span className="hidden md:block">-</span> GRAFIKUS.
         </div>
 
-        <div className="block md:hidden">
+        <div className="block lg:hidden">
           <Hamburger
             rounded
             color="#005A67"
@@ -45,7 +46,7 @@ const Navbar: React.FC = () => {
           />
         </div>
 
-        <ul className="hidden md:flex items-center gap-7">
+        <ul className="hidden lg:flex items-center gap-7">
 
           <div className="relative">
             <li onClick={()=>{setFlyOutOpen(prev => !prev)}} className="flex items-center justify-center gap-2 cursor-pointer">
@@ -89,9 +90,10 @@ const Navbar: React.FC = () => {
 
         {/* Menu Navbar Animated  */}
       <motion.div
-        className="md:hidden w-[100svw] flex flex-col items-center justify-center h-[100vh] fixed top-0 right-0 z-0 bg-white"
+        className="lg:hidden w-[100svw] flex flex-col items-center justify-center h-[100vh] fixed top-0 right-0 z-0 bg-white"
         initial={{ y: "-100%" }}
         animate={isOpen ? { y: 0 } : {}}
+        transition={{duration: .7 , type: "spring"}}
       >
         <ul className="text-xl text-blzs-teal flex flex-col gap-2.5 justify-center items-center">
           <li>RÓLAM</li>
