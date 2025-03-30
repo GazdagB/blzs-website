@@ -2,11 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import Hamburger from "hamburger-react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
+import { FaCaretDown } from "react-icons/fa";
+
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [flyOutOpen, setFlyOutOpen] = useState(false)
 
   
   useEffect(() => {
@@ -24,7 +27,7 @@ const Navbar: React.FC = () => {
   return (
     <>
       <motion.nav
-        className="text-blzs-teal font-bold md:rounded-md max-w-[1140px] bg-white/80 backdrop-blur-lg py-7 z-10 w-full flex fixed top-0 right-[50%] translate-x-[50%] items-center justify-between px-10"
+        className="text-blzs-teal font-bold md:rounded-md max-w-[1250px] bg-white/80 backdrop-blur-lg py-7 z-10 w-full flex fixed top-0 right-[50%] translate-x-[50%] items-center justify-between px-10"
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
       >
@@ -43,17 +46,44 @@ const Navbar: React.FC = () => {
         </div>
 
         <ul className="hidden md:flex items-center gap-7">
-          <li>RÓLAM</li>
+
+          <div className="relative">
+            <li onClick={()=>{setFlyOutOpen(prev => !prev)}} className="flex items-center justify-center gap-2 cursor-pointer">
+            <FaCaretDown className={`${flyOutOpen ? "rotate-180": ""} transition-all duration-300`} />
+            SZAKTERÜLET</li>
+
+            <AnimatePresence>
+            {flyOutOpen && (
+              <motion.div
+              initial={{y: -20, opacity: 0, height: 0}}
+              animate={{y:0, opacity: 1, height: 200}}
+              exit={{y: -20, opacity: 0, height: 0}}
+              className="bg-white flex flex-col items-center justify-center backdrop-blur-lg shadow-md rounded-md h-20 w-50 absolute top-15">
+                <div>
+                  <p className="cursor-pointer">GRAPHIC DESIGN</p>
+                  <div className="h-[2px] w-full bg-blzs-teal my-2"></div>
+                  <p className="cursor-pointer">DIGITAL ART</p>
+                  <div className="h-[2px] w-full bg-blzs-teal my-2"></div>
+                  <p className="cursor-pointer">DIGITAL PRINT</p>
+                </div>
+              </motion.div>)}
+            </AnimatePresence>
+          </div>
+
+           {/* divider */}
+           <div className="h-5 w-0.5 bg-gray-500"></div>
+
+          <li className="cursor-pointer">RÓLAM</li>
 
           {/* divider */}
           <div className="h-5 w-0.5 bg-gray-500"></div>
 
-          <li>KAPCSOLAT</li>
+          <li className="cursor-pointer">KAPCSOLAT</li>
 
           {/* divider */}
           <div className="h-5 w-0.5 bg-gray-500"></div>
 
-          <li>BLOG</li>
+          <li className="cursor-pointer" >BLOG</li>
         </ul>
       </motion.nav>
 
