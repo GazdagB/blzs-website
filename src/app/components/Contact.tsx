@@ -79,36 +79,69 @@ const Contact = () => {
         
       
   };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }, // ✅ Stagger animation
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: 200 },
+    show: { opacity: 1, x: 0, transition: { duration: 0.5 } },
+  };
+
     
   return (
     <div className="py-20 flex-col lg:flex-row  px-10 flex lg:gap-28 xl:gap-48">
       <h2 className="text-5xl font-black text-blzs-teal block lg:hidden">
         KAPCSOLAT
       </h2>
-      <Image
-        className="hidden lg:block"
-        alt="Kapcsolat"
-        src={"/contact.svg"}
-        width={360}
-        height={360}
-      />
+   
+        <motion.div className="flex items-center justify-center"
+        viewport={{once: true,amount: .3}}
+        initial={{x: -400, opacity: 0}}
+        whileInView={{x: 0, opacity: 1}}
+        transition={{duration: .5}}
+        >
+          <Image
+            className="hidden lg:block"
+            alt="Kapcsolat"
+            src={"/contact.svg"}
+            width={360}
+            height={360}
+          />
+        </motion.div>
+    
 
-      <form
+      <motion.form
+        viewport={{once: true, amount: .3}}
+        initial= "hidden"
+        whileInView="show"
+        variants={containerVariants}
         action="#"
         method="POST"
         onSubmit={handleSubmit(onSubmit)}
         className="mx-auto mt-16 max-w-xl sm:mt-20"
       >
-        <h2 className="font-bold text-2xl text-blzs-teal">
+        <motion.h2 className="font-bold text-2xl text-blzs-teal"
+        variants={itemVariants}
+        >
           Küldj nekem üzenetet!
-        </h2>
-        <p className="py-5 text-gray-500">
+        </motion.h2>
+        <motion.p
+        variants={itemVariants}
+        className="py-5 text-gray-500">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam
           sunt sed harum numquam temporibus rerum odio odit non quisquam
           nostrum.
-        </p>
+        </motion.p>
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 transition-all duration-300">
-          <div>
+          <motion.div 
+          variants={itemVariants}
+          >
             <label
               htmlFor="last-name"
               className="block text-sm/6 font-semibold text-gray-900"
@@ -140,8 +173,10 @@ const Contact = () => {
               )}
               </AnimatePresence>
             </div>
-          </div>
-          <div>
+          </motion.div>
+          <motion.div
+          variants={itemVariants}
+          >
             <label
               htmlFor="last-name"
               className="block text-sm/6 font-semibold text-gray-900"
@@ -173,8 +208,10 @@ const Contact = () => {
               )}
               </AnimatePresence>
             </div>
-          </div>
-          <div className="sm:col-span-2">
+          </motion.div>
+          <motion.div
+          variants={itemVariants}
+          className="sm:col-span-2">
             <label
               htmlFor="company"
               className="block text-sm/6 font-semibold text-gray-900"
@@ -191,8 +228,10 @@ const Contact = () => {
                 className="block w-full rounded-md bg-white px-3.5 py-2 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blzs-teal"
               />
             </div>
-          </div>
-          <div className="sm:col-span-2">
+          </motion.div>
+          <motion.div
+          variants={itemVariants}
+          className="sm:col-span-2">
             <label
               htmlFor="email"
               className="block text-sm/6 font-semibold text-gray-900"
@@ -228,8 +267,10 @@ const Contact = () => {
               )}
               </AnimatePresence>
             </div>
-          </div>
-          <div className="sm:col-span-2">
+          </motion.div>
+          <motion.div
+          variants={itemVariants}
+          className="sm:col-span-2">
             <label
               htmlFor="phone-number"
               className="block text-sm/6 font-semibold text-gray-900"
@@ -248,8 +289,10 @@ const Contact = () => {
                 />
               </div>
             </div>
-          </div>
-          <div className="sm:col-span-2">
+          </motion.div>
+          <motion.div
+          variants={itemVariants}
+          className="sm:col-span-2">
             <label
               htmlFor="message"
               className="block text-sm/6 font-semibold text-gray-900"
@@ -281,9 +324,11 @@ const Contact = () => {
               )}
               </AnimatePresence>
             </div>
-          </div>
+          </motion.div>
         </div>
-        <div className="mt-10">
+        <motion.div
+        variants={itemVariants}
+        className="mt-10">
           <button
             disabled={isSubmitting}
             type="submit"
@@ -291,8 +336,8 @@ const Contact = () => {
           >
             {isSubmitting ? "Küldés...": "Beszéljünk"}
           </button>
-        </div>
-      </form>
+        </motion.div>
+      </motion.form>
     </div>
   );
 };
