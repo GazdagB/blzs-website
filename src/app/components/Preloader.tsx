@@ -39,7 +39,7 @@ const Preloader: React.FC<PreloaderTypes> = ({isVisible,setIsVisible}) => {
   if(!isVisible) return null; 
 
   return (
-    <div className="w-[100svw] h-[100svh] absolute z-10 top-0 left-0 bg-white flex items-center justify-center  overflow-hidden">
+    <div className="w-[100svw] h-[100svh] fixed z-10 top-0 left-0 bg-white flex items-center justify-center  overflow-hidden">
         {/* Logo Container */}
       <motion.div
         initial={{ scale: 1, translateZ: 0, opacity: 1 }}
