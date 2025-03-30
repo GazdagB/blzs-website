@@ -5,7 +5,6 @@ import Hamburger from "hamburger-react";
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { FaCaretDown } from "react-icons/fa";
-import { spring } from "motion";
 
 
 const Navbar: React.FC = () => {
