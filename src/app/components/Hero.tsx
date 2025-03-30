@@ -1,11 +1,14 @@
 import React from 'react'
-import { hover, motion } from "framer-motion"; 
+import {motion } from "framer-motion"; 
 
 import blzsLogo from "../assets/logo/blzs-logo.svg";
 import Image from "next/image";
 import Link from 'next/link';
+import { useTransitionRouter } from 'next-view-transitions';
 
 const Hero = () => {
+  const router = useTransitionRouter();
+
   return (
     <div className='pb-30 min-h-[100svh] flex flex-col items-center justify-center'>
         
@@ -17,7 +20,14 @@ const Hero = () => {
       <div className="flex flex-col lg:flex-row gap-8 md:gap-16 lg:gap-44">
         
         {/* Design */}
-        <Link href={"/design"}>
+        <Link
+        onClick={(e )=>{
+          e.preventDefault();
+          router.push('/design',{
+            onTransitionReady: animateDesign
+          })
+        }}
+        href={"/design"}>
         <motion.div 
           className="flex flex-col items-center cursor-pointer"
           whileHover="hover"
@@ -44,7 +54,14 @@ const Hero = () => {
         </Link>
 
         {/* Art */}
-        <Link href={"/art"}>
+        <Link 
+        onClick={(e)=>{
+          e.preventDefault()
+          router.push("/art",{
+            onTransitionReady: animateArt
+          })
+        }}
+        href={"/art"}>
         <motion.div className="flex flex-col items-center cursor-pointer"
         whileHover="hover"
         >
@@ -64,7 +81,14 @@ const Hero = () => {
         </Link>
 
         {/*  */}
-        <Link href={"/print"}>
+        <Link 
+        onClick={(e)=>{
+          e.preventDefault();
+          router.push("/print", {
+            onTransitionReady: animatePrint
+          }); 
+        }}
+        href={"/print"}>
         <motion.div className="flex flex-col items-center cursor-pointer"
         whileHover="hover"
         >
@@ -87,6 +111,126 @@ const Hero = () => {
       </div>
 
     </div>
+  )
+}
+
+const animatePrint = ()=>{
+  document.documentElement.animate(
+    [
+      {
+        opacity: 1,
+        scale: 1,
+        transform: 'translateX(0)'
+      },
+      {
+        opacity: 0.5,
+        scale: 0.9,
+        transform: "translateX(-50%)"
+      }
+    ], 
+    {
+      duration: 1000,
+      easing: "cubic-bezier(0.76,0,0.24,1)",
+      fill: "forwards",
+      pseudoElement: '::view-transition-old(root)',
+    }
+  )
+
+  document.documentElement.animate(
+    [
+      {
+        transform: 'translateX(100%)'
+      },
+      {
+        transform: "translateX(0)"
+      }
+    ], 
+    {
+      duration: 1000,
+      easing: "cubic-bezier(0.76,0,0.24,1)",
+      fill: "forwards",
+      pseudoElement: '::view-transition-new(root)',
+    }
+  )
+}
+
+const animateArt = ()=>{
+  document.documentElement.animate(
+    [
+      {
+        opacity: 1,
+        scale: 1,
+        transform: 'translateY(0)'
+      },
+      {
+        opacity: 0.5,
+        scale: 0.9,
+        transform: "translateY(-50%)"
+      }
+    ], 
+    {
+      duration: 1000,
+      easing: "cubic-bezier(0.76,0,0.24,1)",
+      fill: "forwards",
+      pseudoElement: '::view-transition-old(root)',
+    }
+  )
+
+  document.documentElement.animate(
+    [
+      {
+        transform: 'translateY(100%)'
+      },
+      {
+        transform: "translateY(0)"
+      }
+    ], 
+    {
+      duration: 1000,
+      easing: "cubic-bezier(0.76,0,0.24,1)",
+      fill: "forwards",
+      pseudoElement: '::view-transition-new(root)',
+    }
+  )
+}
+
+const animateDesign = ()=>{
+  document.documentElement.animate(
+    [
+      {
+        opacity: 1,
+        scale: 1,
+        transform: 'translateX(0)'
+      },
+      {
+        opacity: 0.5,
+        scale: 0.9,
+        transform: "translateX(50%)"
+      }
+    ], 
+    {
+      duration: 1000,
+      easing: "cubic-bezier(0.76,0,0.24,1)",
+      fill: "forwards",
+      pseudoElement: '::view-transition-old(root)',
+    }
+  )
+
+  document.documentElement.animate(
+    [
+      {
+        transform: 'translateX(-100%)'
+      },
+      {
+        transform: "translateX(0)"
+      }
+    ], 
+    {
+      duration: 1000,
+      easing: "cubic-bezier(0.76,0,0.24,1)",
+      fill: "forwards",
+      pseudoElement: '::view-transition-new(root)',
+    }
   )
 }
 

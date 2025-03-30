@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
+import {ViewTransitions} from "next-view-transitions";
 
 
 
@@ -22,6 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ViewTransitions>
     <html lang="en">
       <body
       lang="hu"
@@ -30,5 +32,6 @@ export default function RootLayout({
         {children}
       </body>
     </html>
+    </ViewTransitions>
   );
 }
