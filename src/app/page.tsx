@@ -22,7 +22,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center overflow-x-hidden">
+    <div className="flex flex-col items-center justify-center overflow-x-hidden bg-white">
       <Navbar />
       {!preloaderWatched && <Preloader setIsVisible={setIsVisible} isVisible={isVisible} />}
 
