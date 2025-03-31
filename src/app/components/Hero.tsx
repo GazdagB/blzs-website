@@ -5,6 +5,7 @@ import blzsLogo from "../assets/logo/blzs-logo.svg";
 import Image from "next/image";
 import Link from 'next/link';
 import { useTransitionRouter } from 'next-view-transitions';
+import {animateRight,animateDown,animateLeft} from "../utils/animationUtils"
 
 const Hero = () => {
   const router = useTransitionRouter();
@@ -30,7 +31,7 @@ const Hero = () => {
         onClick={(e )=>{
           e.preventDefault();
           router.push('/design',{
-            onTransitionReady: animateDesign
+            onTransitionReady: animateLeft
           })
         }}
         href={"/design"}>
@@ -68,7 +69,7 @@ const Hero = () => {
         onClick={(e)=>{
           e.preventDefault()
           router.push("/art",{
-            onTransitionReady: animateArt
+            onTransitionReady: animateDown
           })
         }}
         href={"/art"}>
@@ -99,7 +100,7 @@ const Hero = () => {
         onClick={(e)=>{
           e.preventDefault();
           router.push("/print", {
-            onTransitionReady: animatePrint
+            onTransitionReady: animateRight
           }); 
         }}
         href={"/print"}>
@@ -131,125 +132,4 @@ const Hero = () => {
     </div>
   )
 }
-
-const animatePrint = ()=>{
-  document.documentElement.animate(
-    [
-      {
-        opacity: 1,
-        scale: 1,
-        transform: 'translateX(0)'
-      },
-      {
-        opacity: 0.5,
-        scale: 0.9,
-        transform: "translateX(-50%)"
-      }
-    ], 
-    {
-      duration: 1000,
-      easing: "cubic-bezier(0.76,0,0.24,1)",
-      fill: "forwards",
-      pseudoElement: '::view-transition-old(root)',
-    }
-  )
-
-  document.documentElement.animate(
-    [
-      {
-        transform: 'translateX(100%)'
-      },
-      {
-        transform: "translateX(0)"
-      }
-    ], 
-    {
-      duration: 1000,
-      easing: "cubic-bezier(0.76,0,0.24,1)",
-      fill: "forwards",
-      pseudoElement: '::view-transition-new(root)',
-    }
-  )
-}
-
-const animateArt = ()=>{
-  document.documentElement.animate(
-    [
-      {
-        opacity: 1,
-        scale: 1,
-        transform: 'translateY(0)'
-      },
-      {
-        opacity: 0.5,
-        scale: 0.9,
-        transform: "translateY(-50%)"
-      }
-    ], 
-    {
-      duration: 1000,
-      easing: "cubic-bezier(0.76,0,0.24,1)",
-      fill: "forwards",
-      pseudoElement: '::view-transition-old(root)',
-    }
-  )
-
-  document.documentElement.animate(
-    [
-      {
-        transform: 'translateY(100%)'
-      },
-      {
-        transform: "translateY(0)"
-      }
-    ], 
-    {
-      duration: 1000,
-      easing: "cubic-bezier(0.76,0,0.24,1)",
-      fill: "forwards",
-      pseudoElement: '::view-transition-new(root)',
-    }
-  )
-}
-
-const animateDesign = ()=>{
-  document.documentElement.animate(
-    [
-      {
-        opacity: 1,
-        scale: 1,
-        transform: 'translateX(0)'
-      },
-      {
-        opacity: 0.5,
-        scale: 0.9,
-        transform: "translateX(50%)"
-      }
-    ], 
-    {
-      duration: 1000,
-      easing: "cubic-bezier(0.76,0,0.24,1)",
-      fill: "forwards",
-      pseudoElement: '::view-transition-old(root)',
-    }
-  )
-
-  document.documentElement.animate(
-    [
-      {
-        transform: 'translateX(-100%)'
-      },
-      {
-        transform: "translateX(0)"
-      }
-    ], 
-    {
-      duration: 1000,
-      easing: "cubic-bezier(0.76,0,0.24,1)",
-      fill: "forwards",
-      pseudoElement: '::view-transition-new(root)',
-    }
-  )
-}
-
 export default Hero

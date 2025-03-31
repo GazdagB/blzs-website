@@ -4,13 +4,16 @@ import React, { useState, useEffect } from "react";
 import Hamburger from "hamburger-react";
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
+import { useTransitionRouter } from 'next-view-transitions';
 import { FaCaretDown } from "react-icons/fa";
-
+import Link from "next/link"
+import {animateDown,animateLeft,animateRight} from "../utils/animationUtils"
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [flyOutOpen, setFlyOutOpen] = useState(false)
 
+  const router = useTransitionRouter();
   
   useEffect(() => {
     if (isOpen) {
@@ -60,11 +63,32 @@ const Navbar: React.FC = () => {
               exit={{y: -20, opacity: 0, height: 0}}
               className="bg-white flex flex-col items-center justify-center backdrop-blur-lg shadow-md rounded-md h-20 w-50 absolute top-15">
                 <div>
-                  <p className="cursor-pointer">GRAPHIC DESIGN</p>
+                  <Link
+                  onClick={(e )=>{
+                            e.preventDefault();
+                            router.push('/design',{
+                              onTransitionReady: animateLeft
+                            })
+                          }}
+                  href={"/design"} className="cursor-pointer">GRAPHIC DESIGN</Link>
                   <div className="h-[2px] w-full bg-blzs-teal my-2"></div>
-                  <p className="cursor-pointer">DIGITAL ART</p>
+                  <Link 
+                  onClick={(e )=>{
+                    e.preventDefault();
+                    router.push('/design',{
+                      onTransitionReady: animateDown
+                    })
+                  }}
+                  href={"/art"} className="cursor-pointer">DIGITAL ART</Link>
                   <div className="h-[2px] w-full bg-blzs-teal my-2"></div>
-                  <p className="cursor-pointer">DIGITAL PRINT</p>
+                  <Link
+                  onClick={(e )=>{
+                    e.preventDefault();
+                    router.push('/design',{
+                      onTransitionReady: animateRight
+                    })
+                  }}
+                  href={"print"} className="cursor-pointer">DIGITAL PRINT</Link>
                 </div>
               </motion.div>)}
             </AnimatePresence>
