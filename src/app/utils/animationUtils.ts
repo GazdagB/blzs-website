@@ -1,3 +1,7 @@
+
+
+
+
 export const animateRight = () => {
     document.documentElement.animate(
       [
@@ -117,3 +121,18 @@ export const animateRight = () => {
       }
     )
   }
+
+  type Direction = "left" | "down" | "right";
+
+const animations: Record<Direction, () => void> = {
+  left: animateLeft,
+  right: animateRight,
+  down: animateDown
+};
+
+export const animate = (direction: Direction): void => {
+  const animation = animations[direction];
+  if (animation) {
+    animation();
+  }
+};

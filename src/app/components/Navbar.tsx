@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useTransitionRouter } from 'next-view-transitions';
 import { FaCaretDown } from "react-icons/fa";
 import Link from "next/link"
-import {animateDown,animateLeft,animateRight} from "../utils/animationUtils"
+import {animate} from "../utils/animationUtils"
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -67,7 +67,7 @@ const Navbar: React.FC = () => {
                   onClick={(e )=>{
                             e.preventDefault();
                             router.push('/design',{
-                              onTransitionReady: animateLeft
+                              onTransitionReady: ()=>{animate("left")}
                             })
                           }}
                   href={"/design"} className="cursor-pointer">GRAPHIC DESIGN</Link>
@@ -75,8 +75,8 @@ const Navbar: React.FC = () => {
                   <Link 
                   onClick={(e )=>{
                     e.preventDefault();
-                    router.push('/design',{
-                      onTransitionReady: animateDown
+                    router.push('/art',{
+                      onTransitionReady: ()=>{animate("down")}
                     })
                   }}
                   href={"/art"} className="cursor-pointer">DIGITAL ART</Link>
@@ -84,8 +84,8 @@ const Navbar: React.FC = () => {
                   <Link
                   onClick={(e )=>{
                     e.preventDefault();
-                    router.push('/design',{
-                      onTransitionReady: animateRight
+                    router.push('/print',{
+                      onTransitionReady: ()=>{animate("right")}
                     })
                   }}
                   href={"print"} className="cursor-pointer">DIGITAL PRINT</Link>
