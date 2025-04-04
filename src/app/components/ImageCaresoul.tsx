@@ -27,7 +27,7 @@ const ImageCarousel = () => {
 
   const totalImages = images.length;
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e : React.MouseEvent<HTMLDivElement>) => {
     const { left, top } = e.currentTarget.getBoundingClientRect();
     setPosition({
       x: e.clientX - left,
