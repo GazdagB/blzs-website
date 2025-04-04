@@ -1,11 +1,10 @@
 import React from 'react'
 import Image from 'next/image'
-import Caricature from "../assets/caricature.png"
 
-const Polaroid = () => {
+const Polaroid = ({src}) => {
   return (
     <div className='shadow-lg pb-25'>
-        <Image src={Caricature} alt='Karikatúra rajz'/>
+        <Image width={450} height={450} src={src} alt='Karikatúra rajz'/>
     </div>
   )
 }
