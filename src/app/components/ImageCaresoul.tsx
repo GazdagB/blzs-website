@@ -80,6 +80,7 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
           y: position.y,
           opacity: isVisible.state ? 1 : 0,
           scale: isVisible.state ? 4 : 0,
+          transition: {type: "spring", damping: 50, stiffness: 1000}
         }}
       >
         {isVisible.direction === "right" ? <FaArrowRight /> : <FaArrowLeft />}
