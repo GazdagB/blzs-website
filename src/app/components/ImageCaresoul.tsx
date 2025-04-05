@@ -69,7 +69,7 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
 
   return (
     <div
-      className="relative w-full mt-20 max-w-[1200px] min-h-[450px] sm:min-h-[550px] md:min-h-[700px]"
+      className="relative w-full h-[500px] mt-20 max-w-[1200px] min-h-[450px] sm:min-h-[550px] md:min-h-[700px]"
       onMouseMove={handleMouseMove}
     >
       {/* Animated Cursor */}
@@ -85,7 +85,7 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
       >
         {isVisible.direction === "right" ? <FaArrowRight /> : <FaArrowLeft />}
       </motion.div>
-
+      
       {/* Left Edge Button */}
       <div
         className="h-full w-[30%] top-0 left-0 absolute z-20 cursor-pointer"
@@ -93,9 +93,10 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
         onMouseEnter={() => setIsVisible({ state: true, direction: "left" })}
         onMouseLeave={() => setIsVisible({ state: false, direction: "left" })}
       ></div>
-
+      
       {/* Image Container */}
-      <div className="flex overflow-x-hidden justify-center items-center h-full relative">
+      <div className="flex overflow-hidden justify-center items-center h-full relative">
+    
         {images.map((src, index) => {
           // Calculate the position relative to the current index
           const indexDiff = (index - currentIndex + totalImages) % totalImages;
@@ -125,7 +126,7 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
           const isCenter = indexDiff === 0;
           const scale = isCenter ? 1 : 0.5;
           const rotation = isCenter ? 0 : indexDiff === 1 ? 5 : -5;
-
+            
           return (
             <motion.div
               key={`${src}-${index}`}
@@ -145,6 +146,7 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
               }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
+              
               <Polaroid src={src} />
             </motion.div>
           );
@@ -159,6 +161,12 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
         onMouseEnter={() => setIsVisible({ state: true, direction: "right" })}
         onMouseLeave={() => setIsVisible({ state: false, direction: "right" })}
       ></div>
+
+      
+<div className="lg:hidden flex items-center justify-center gap-5 text-4xl text-blzs-teal">
+          <FaArrowLeft className="cursor-pointer"></FaArrowLeft>
+          <FaArrowRight className="cursor-pointer"></FaArrowRight>
+        </div>
     </div>
   );
 };

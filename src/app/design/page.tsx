@@ -20,7 +20,7 @@ const images = [
 
 const Design = () => {
   return (
-    <div className='h-[100vh] w-[100vw] overflow-x-hidden bg-white flex flex-col justify-start items-center'>
+    <div className='min-h-[100vh] w-[100vw]  bg-white flex flex-col justify-start items-center pb-10 h-full'>
       <TypeHeader direction="right" bodyText={bodyText} header='design' subHeader='graphic' />
       <ImageCaresoul images={images}></ImageCaresoul>
     </div>

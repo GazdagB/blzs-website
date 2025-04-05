@@ -25,15 +25,12 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-    <html lang="en">
-      <body
-      lang="hu"
-        className={montserrat.variable}
-      >
-        {children}
-        <Footer/>
-      </body>
-    </html>
+      <html lang="en" className={montserrat.variable}>
+        <body lang="hu" className="flex flex-col min-h-screen">
+          <main className="flex-grow">{children}</main>
+          <Footer />
+        </body>
+      </html>
     </ViewTransitions>
   );
 }
