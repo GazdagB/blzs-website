@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Polaroid from "./Polaroid";
 import { FaArrowRight } from "react-icons/fa6";
@@ -17,6 +17,7 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
     state: false,
     direction: "left",
   });
+  const [polaroidX,setPolaroidX] = useState(150)
 
   const totalImages = images.length;
 
@@ -36,14 +37,44 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + totalImages) % totalImages);
   };
 
+  useEffect(() => {
+    // Define the handler
+    const handleResize = () => {
+      const width = window.innerWidth;
+    
+      if (width > 1200) {
+        setPolaroidX(380);
+      } else if (width > 1024) {
+        setPolaroidX(320);
+      } else if (width > 768) {
+        setPolaroidX(250);
+      } else {
+        setPolaroidX(180);
+      }
+    };
+
+    handleResize();
+
+    
+
+    window.addEventListener("resize", handleResize);
+
+    // Clean up
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  
+
   return (
     <div
-      className="relative w-full mt-20 max-w-[1200px] min-h-[700px]"
+      className="relative w-full mt-20 max-w-[1200px] min-h-[450px] sm:min-h-[550px] md:min-h-[700px]"
       onMouseMove={handleMouseMove}
     >
       {/* Animated Cursor */}
       <motion.div
-        className="h-8 w-8 z-20 flex items-center justify-center bg-blzs-teal rounded-full absolute pointer-events-none text-white"
+        className="h-8 hidden lg:flex w-8 z-20 items-center justify-center bg-blzs-teal rounded-full absolute pointer-events-none text-white"
         animate={{
           x: position.x,
           y: position.y,
@@ -56,7 +87,7 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
 
       {/* Left Edge Button */}
       <div
-        className="h-full w-[30%] top-0 left-0 absolute z-10 cursor-pointer"
+        className="h-full w-[30%] top-0 left-0 absolute z-20 cursor-pointer"
         onClick={prevImage}
         onMouseEnter={() => setIsVisible({ state: true, direction: "left" })}
         onMouseLeave={() => setIsVisible({ state: false, direction: "left" })}
@@ -80,10 +111,10 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
             xPosition = 0;
           } else if (indexDiff === 1) {
             // Right side image
-            xPosition = 400;
+            xPosition = polaroidX;
           } else if (indexDiff === totalImages - 1) {
             // Left side image
-            xPosition = -400;
+            xPosition = -polaroidX;
           } else {
             // Images that should be off-screen
             xPosition = indexDiff < totalImages / 2 ? -1000 : 1000;
@@ -97,7 +128,7 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
           return (
             <motion.div
               key={`${src}-${index}`}
-              className="absolute"
+              className="absolute "
               style={{ zIndex: isCenter ? 10 : 1 }}
               initial={{
                 opacity: isVisible ? 1 : 0,
@@ -118,6 +149,7 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
           );
         })}
       </div>
+      
 
       {/* Right Edge Button */}
       <div
