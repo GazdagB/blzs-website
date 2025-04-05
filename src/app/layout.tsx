@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import {ViewTransitions} from "next-view-transitions";
+import Footer from "./components/Footer";
 
 
 
@@ -30,6 +31,7 @@ export default function RootLayout({
         className={montserrat.variable}
       >
         {children}
+        <Footer/>
       </body>
     </html>
     </ViewTransitions>
