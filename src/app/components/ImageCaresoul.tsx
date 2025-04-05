@@ -6,18 +6,11 @@ import Polaroid from "./Polaroid";
 import { FaArrowRight } from "react-icons/fa6";
 import { FaArrowLeft } from "react-icons/fa";
 
-const images = [
-  "/references/art/majka.webp",
-  "/references/art/marics.webp",
-  "/references/art/csalad.webp",
-  "/references/art/fa.webp",
-  "/references/art/mikrofon.webp",
-  "/references/art/wedding.webp",
-  "/references/art/selfportraits.webp",
-  "/references/art/tilla.webp",
-];
+interface caresoulTypes {
+  images: string[]
+}
 
-const ImageCarousel = () => {
+const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState({

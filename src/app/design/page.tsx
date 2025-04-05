@@ -7,11 +7,22 @@ A színek, formák, képek és kompozíciók tudatos használatával segít elig
 és érzelmi kapcsolatot teremt a nézővel.
 A jó tipográfia nem csupán esztétikai elem, hanem az információ átadásának egyik legfontosabb eszköze.`;
 
+const images = [
+  "/references/art/majka.webp",
+  "/references/art/marics.webp",
+  "/references/art/csalad.webp",
+  "/references/art/fa.webp",
+  "/references/art/mikrofon.webp",
+  "/references/art/wedding.webp",
+  "/references/art/selfportraits.webp",
+  "/references/art/tilla.webp",
+];
+
 const Design = () => {
   return (
     <div className='h-[100vh] w-[100vw] bg-white flex flex-col justify-center items-center'>
       <TypeHeader direction="right" bodyText={bodyText} header='design' subHeader='graphic' />
-      <ImageCaresoul></ImageCaresoul>
+      <ImageCaresoul images={images}></ImageCaresoul>
     </div>
   )
 }
