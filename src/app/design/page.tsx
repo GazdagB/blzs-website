@@ -1,6 +1,7 @@
 import React from 'react';
 import TypeHeader from '../components/TypeHeader';
 import ImageCaresoul from '../components/ImageCaresoul';
+import Link from 'next/link';
 
 const bodyText = `A tervezőgrafika lényege, hogy vizuális eszközökkel hatékonyan közvetítsen üzeneteket.
 A színek, formák, képek és kompozíciók tudatos használatával segít eligazodni, megragadja a figyelmet,

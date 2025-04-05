@@ -1,4 +1,4 @@
-# 🚀 Project Name
+# 🚀 BLZS Website
 
 This project is a portfolio website for my friend **Balázs**, an awesome Graphic Designer and Digital Artist.
 Built with **Next.js**, **Tailwind CSS**, and **Framer Motion**, the site features **custom-crafted page transitions** and smooth animations to give visitors a premium browsing experience. The language of the site is Hungarian. 

@@ -163,9 +163,9 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
       ></div>
 
       
-<div className="lg:hidden flex items-center justify-center gap-5 text-4xl text-blzs-teal">
-          <FaArrowLeft className="cursor-pointer"></FaArrowLeft>
-          <FaArrowRight className="cursor-pointer"></FaArrowRight>
+    <div className="lg:hidden flex items-center justify-center gap-5 text-4xl text-blzs-teal">
+          <FaArrowLeft onClick={prevImage}  className="cursor-pointer"></FaArrowLeft>
+          <FaArrowRight onClick={nextImage}  className="cursor-pointer"></FaArrowRight>
         </div>
     </div>
   );
