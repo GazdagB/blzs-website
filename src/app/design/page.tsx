@@ -1,7 +1,7 @@
 import React from 'react';
 import TypeHeader from '../components/TypeHeader';
 import ImageCaresoul from '../components/ImageCaresoul';
-import Link from 'next/link';
+import BackToHome from '../components/BackToHome';
 
 const bodyText = `A tervezőgrafika lényege, hogy vizuális eszközökkel hatékonyan közvetítsen üzeneteket.
 A színek, formák, képek és kompozíciók tudatos használatával segít eligazodni, megragadja a figyelmet,
@@ -24,6 +24,7 @@ const Design = () => {
     <div className='min-h-[100vh] w-[100vw]  bg-white flex flex-col justify-start items-center pb-10 h-full'>
       <TypeHeader direction="right" bodyText={bodyText} header='design' subHeader='graphic' />
       <ImageCaresoul images={images}></ImageCaresoul>
+      <BackToHome animationDirection='right'/>
     </div>
   )
 }
