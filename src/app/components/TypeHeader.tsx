@@ -18,7 +18,7 @@ const TypeHeader: React.FC<TypeHeaderProps> = ({
   bodyText,
 }) => {
   return (
-    <div className={`flex flex-col-reverse mt-30 gap-10 ${direction === "left" ? "md:flex-row-reverse" : "md:flex-row"}`}>
+    <div className={`flex flex-col-reverse mt-40 gap-10 ${direction === "left" ? "md:flex-row-reverse" : "md:flex-row"}`}>
       <div
         className={`${
           direction === "right" ? "md:text-right" : "md:text-left"
