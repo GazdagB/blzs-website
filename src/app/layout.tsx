@@ -25,9 +25,9 @@ export default function RootLayout({
 }>) {
   return (
     <ViewTransitions>
-      <html lang="en" className={montserrat.variable}>
-        <body lang="hu" className="flex flex-col min-h-screen">
-          <main className="flex-grow">{children}</main>
+      <html lang="en" className={`${montserrat.variable} overflow-x-hidden`}>
+        <body  lang="hu" className="flex flex-col min-h-screen">
+          <main className="w-[100vw]">{children}</main>
           <Footer />
         </body>
       </html>
