@@ -22,6 +22,20 @@ const router = useTransitionRouter();
 
 const handleChangePage = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, destination: string, direction: "left"| "down" | "right")=>{
   e.preventDefault(); 
+
+  if(isOpen){
+    setIsOpen(false)
+    setTimeout(()=>{
+      router.push(destination , {
+        onTransitionReady: () => {
+          animate(direction);
+        },
+      });
+    }, 300)
+  
+    return;
+  }
+
   router.push(destination , {
     onTransitionReady: () => {
       animate(direction);
@@ -232,11 +246,18 @@ const handleChangePage = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, de
         </ul>
         <div className="h-[1.5px] w-40 bg-blzs-teal my-5"></div>
         <ul className="text-xl text-blzs-teal flex flex-col gap-2.5 justify-center items-center mb-10">
-          <li
-          onClick={handleChangePage}
-          >DESIGN</li>
-          <li>ART</li>
-          <li>PRINT</li>
+          <Link
+          onClick={(e)=>{handleChangePage(e,"/design", "left")}}
+          href={"/design"}
+          >DESIGN</Link>
+          <Link
+          onClick={(e)=>{handleChangePage(e,"/art", "down")}}
+          href={"/art"}
+          >ART</Link>
+          <Link
+          onClick={(e)=>{handleChangePage(e,"/print", "down")}}
+          href={"/print"}
+          >PRINT</Link>
         </ul>
 
         <div className="flex items-center gap-4">
