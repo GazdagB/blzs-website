@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useTransitionRouter } from "next-view-transitions";
 import { FaCaretDown } from "react-icons/fa";
 import Link from "next/link";
-import { animate } from "../utils/animationUtils";
+import { animate} from "../utils/animationUtils";
 
 interface NavbarTypes {
   activeLink: string;
@@ -90,7 +90,7 @@ const Navbar: React.FC<NavbarTypes> = ({ activeLink }) => {
               onClick={() => {
                 setFlyOutOpen((prev) => !prev);
               }}
-              className="flex items-center justify-center gap-2 cursor-pointer"
+              className="flex items-center justify-center gap-2 cursor-pointer pb-1"
             >
               <FaCaretDown
                 className={`${
@@ -166,12 +166,21 @@ const Navbar: React.FC<NavbarTypes> = ({ activeLink }) => {
             onClick={() => {
               handleSmoothScroll("about", 150);
             }}
-            className="cursor-pointer"
+            className="cursor-pointer flex flex-col items-center justify-center"
           >
-            RÓLAM
-            {activeLink === "about" && (
-              <div className="w-full h-1 rounded-full bg-blzs-teal"></div>
-            )}
+            <div className="h-7 w-full flex flex-col items-center">
+              RÓLAM
+              <AnimatePresence>
+              {activeLink === "about" && (
+                <motion.div
+                initial={{width: 0}}
+                animate={{width: "100%"}}
+                exit={{width: 0}}
+                className="w-full h-1 rounded-full bg-blzs-teal origin-center"></motion.div>
+              )}
+              </AnimatePresence>
+            </div>
+            
           </li>
 
           {/* divider */}
@@ -181,12 +190,20 @@ const Navbar: React.FC<NavbarTypes> = ({ activeLink }) => {
             onClick={() => {
               handleSmoothScroll("contact", 100);
             }}
-            className="cursor-pointer"
+            className="cursor-pointer flex flex-col items-center justify-start"
           >
-            KAPCSOLAT
-            {activeLink === "contact" && (
-              <div className="bg-blzs-teal h-1 w-full rounded-full"></div>
-            )}
+            <div className="h-7 flex flex-col items-center w-full">
+              KAPCSOLAT
+              <AnimatePresence>
+                {activeLink === "contact" && (
+                  <motion.div
+                  initial={{width: 0}}
+                  animate={{width: "100%"}}
+                  exit={{width: 0}}
+                  className="bg-blzs-teal h-1 w-full rounded-full"></motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </li>
 
           {/* divider */}
