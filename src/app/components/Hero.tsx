@@ -5,7 +5,7 @@ import blzsLogo from "../assets/logo/blzs-logo.svg";
 import Image from "next/image";
 import Link from 'next/link';
 import { useTransitionRouter } from 'next-view-transitions';
-import {animateRight,animateDown,animateLeft} from "../utils/animationUtils"
+import {animate} from "../utils/animationUtils"
 import { useRef, useEffect } from 'react';
 import { useInView } from "motion/react";
 
@@ -18,6 +18,16 @@ const Hero: React.FC<HeroProps> = ({setActiveLink}) => {
 
   const myRef = useRef<HTMLDivElement>(null)
   const inView = useInView(myRef, {amount: 0.9})
+
+
+  const handleChangePage = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, destination: string, direction: "left"| "down" | "right")=>{
+    e.preventDefault(); 
+    router.push(destination , {
+      onTransitionReady: () => {
+        animate(direction);
+      },
+    });
+  }
 
   useEffect(()=>{
     
@@ -46,12 +56,7 @@ const Hero: React.FC<HeroProps> = ({setActiveLink}) => {
         
         {/* Design */}
         <Link
-        onClick={(e )=>{
-          e.preventDefault();
-          router.push('/design',{
-            onTransitionReady: animateLeft
-          })
-        }}
+        onClick={(e)=>{handleChangePage(e,"/design", "left")}}
         href={"/design"}>
         <motion.div 
           className="flex flex-col items-center cursor-pointer"
@@ -84,12 +89,7 @@ const Hero: React.FC<HeroProps> = ({setActiveLink}) => {
 
         {/* Art */}
         <Link 
-        onClick={(e)=>{
-          e.preventDefault()
-          router.push("/art",{
-            onTransitionReady: animateDown
-          })
-        }}
+        onClick={(e)=>{handleChangePage(e,"/art", "down")}}
         href={"/art"}>
         <motion.div className="flex flex-col items-center cursor-pointer"
          whileHover="hover"
@@ -115,12 +115,7 @@ const Hero: React.FC<HeroProps> = ({setActiveLink}) => {
 
         {/*  */}
         <Link 
-        onClick={(e)=>{
-          e.preventDefault();
-          router.push("/print", {
-            onTransitionReady: animateRight
-          }); 
-        }}
+        onClick={(e)=>{handleChangePage(e,"/print", "right")}}
         href={"/print"}>
         <motion.div className="flex flex-col items-center cursor-pointer"
           whileHover="hover"

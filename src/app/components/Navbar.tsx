@@ -17,7 +17,17 @@ const Navbar: React.FC<NavbarTypes> = ({ activeLink }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [flyOutOpen, setFlyOutOpen] = useState(false);
 
-  const router = useTransitionRouter();
+  
+const router = useTransitionRouter();
+
+const handleChangePage = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, destination: string, direction: "left"| "down" | "right")=>{
+  e.preventDefault(); 
+  router.push(destination , {
+    onTransitionReady: () => {
+      animate(direction);
+    },
+  });
+}
 
   const handleSmoothScroll = (targetId: string, offset: number) => {
     const target = document.getElementById(targetId);
@@ -110,14 +120,7 @@ const Navbar: React.FC<NavbarTypes> = ({ activeLink }) => {
                 >
                   <div>
                     <Link
-                      onClick={(e) => {
-                        e.preventDefault();
-                        router.push("/design", {
-                          onTransitionReady: () => {
-                            animate("left");
-                          },
-                        });
-                      }}
+                      onClick={(e)=>{handleChangePage(e,"/design", "left")}}
                       href={"/design"}
                       className="cursor-pointer"
                     >
@@ -125,14 +128,7 @@ const Navbar: React.FC<NavbarTypes> = ({ activeLink }) => {
                     </Link>
                     <div className="h-[2px] w-full bg-blzs-teal my-2"></div>
                     <Link
-                      onClick={(e) => {
-                        e.preventDefault();
-                        router.push("/art", {
-                          onTransitionReady: () => {
-                            animate("down");
-                          },
-                        });
-                      }}
+                      onClick={(e) => {handleChangePage(e, "/art", "down")}}
                       href={"/art"}
                       className="cursor-pointer"
                     >
@@ -140,15 +136,8 @@ const Navbar: React.FC<NavbarTypes> = ({ activeLink }) => {
                     </Link>
                     <div className="h-[2px] w-full bg-blzs-teal my-2"></div>
                     <Link
-                      onClick={(e) => {
-                        e.preventDefault();
-                        router.push("/print", {
-                          onTransitionReady: () => {
-                            animate("right");
-                          },
-                        });
-                      }}
-                      href={"print"}
+                      onClick={(e) => {handleChangePage(e, "/print", "right")}}
+                      href={"/print"}
                       className="cursor-pointer"
                     >
                       DIGITAL PRINT
@@ -243,7 +232,9 @@ const Navbar: React.FC<NavbarTypes> = ({ activeLink }) => {
         </ul>
         <div className="h-[1.5px] w-40 bg-blzs-teal my-5"></div>
         <ul className="text-xl text-blzs-teal flex flex-col gap-2.5 justify-center items-center mb-10">
-          <li>DESIGN</li>
+          <li
+          onClick={handleChangePage}
+          >DESIGN</li>
           <li>ART</li>
           <li>PRINT</li>
         </ul>
