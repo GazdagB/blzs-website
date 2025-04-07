@@ -34,15 +34,16 @@ const BackToHome : React.FC<backToHomeType> = ({animationDirection}) => {
 
 
   return (
-    <div 
+    <Link
+    href={"/"} 
      onClick={(e )=>{
               e.preventDefault();
-              router.push('/',{
+              router.push("/",{
                 onTransitionReady: getAnimation(animationDirection)
               })
             }}
     className="sticky bottom-12 right-12 z-20 w-[100vw] flex items-center justify-end px-5 md:px-10 pointer-events-none">
-      <Link href="/">
+      <div >
         {/* Button container */}
         <motion.div
           className="bg-blzs-teal h-20 w-20 text-white text-4xl rounded-full flex items-center justify-center shadow-xl cursor-pointer pointer-events-auto"
@@ -52,7 +53,7 @@ const BackToHome : React.FC<backToHomeType> = ({animationDirection}) => {
         >
           <FaHome />
         </motion.div>
-      </Link>
+      </div>
 
       {/* Slide-out text */}
       <motion.div
@@ -66,7 +67,7 @@ const BackToHome : React.FC<backToHomeType> = ({animationDirection}) => {
       >
         Viassza a kezdőlapra
       </motion.div>
-    </div>
+    </Link>
   );
 }
 
