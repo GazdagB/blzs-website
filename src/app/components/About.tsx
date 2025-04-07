@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import blzs from "../assets/blzs.png";
 import { motion } from "framer-motion"; // ✅ Correct import
 import Image from "next/image";
 import SkillBar from "./SkillBar";
+import { useInView } from "motion/react";
+import { useRef } from "react";
 
 const skillIconsSoftware = [
   { src: "/icons/illustrator.png", alt: "illustrator ikon", width: 35, height: 35 },
@@ -31,9 +33,23 @@ const itemVariants = {
   show: { opacity: 1, x: 0, transition: { duration: 0.5 } },
 };
 
-const About = () => {
+interface AboutProps {
+  setActiveLink: React.Dispatch<React.SetStateAction<string>>; 
+}
+
+const About: React.FC<AboutProps> = ({setActiveLink}) => {
+  const myRef = useRef<HTMLDivElement>(null)
+  const inView = useInView(myRef, {amount: 0.9})
+
+  useEffect(()=>{
+    if(inView){
+      setActiveLink("about")
+    }
+  },[inView])
+
   return (
     <section
+    ref={myRef}
     id="about"
       className="w-[100svw] flex items-center justify-center py-20 scroll-offset"
       style={{ backgroundImage: "url(/bg-teal.png)" }}

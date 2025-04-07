@@ -4,6 +4,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import {AnimatePresence, motion } from "motion/react";
 import emailjs from '@emailjs/browser';
 import Swal from 'sweetalert2'
+import { useEffect, useRef } from "react";
+import { useInView } from "motion/react";
 
 type FormFields = {
   lastName: string;
@@ -14,7 +16,20 @@ type FormFields = {
   message: string;
 };
 
-const Contact = () => {
+interface ContactProps {
+  setActiveLink: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Contact : React.FC<ContactProps> = ({setActiveLink}) => {
+
+  const myRef = useRef<HTMLDivElement>(null)
+  const inView = useInView(myRef, {amount: 0.9})
+
+  useEffect(()=>{
+    if(inView){
+      setActiveLink("contact")
+    }
+  },[inView])
 
     const serviceId  = process.env.NEXT_PUBLIC_SERVICE_ID || '';
     const templateId = process.env.NEXT_PUBLIC_TEMPLATE_ID || '';
@@ -96,6 +111,7 @@ const Contact = () => {
     
   return (
     <section
+    ref={myRef}
     id="contact"
     className="py-20 flex-col lg:flex-row  px-10 flex lg:gap-28 xl:gap-48">
       <h2 className="text-5xl font-black text-blzs-teal block lg:hidden">

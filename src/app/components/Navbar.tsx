@@ -9,7 +9,11 @@ import { FaCaretDown } from "react-icons/fa";
 import Link from "next/link";
 import { animate } from "../utils/animationUtils";
 
-const Navbar: React.FC = () => {
+interface NavbarTypes {
+  activeLink: string
+}
+
+const Navbar: React.FC<NavbarTypes> = ({activeLink}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [flyOutOpen, setFlyOutOpen] = useState(false);
 
@@ -166,6 +170,7 @@ const Navbar: React.FC = () => {
             className="cursor-pointer"
           >
             RÓLAM
+            {activeLink === "about" && <div className="w-full h-1 rounded-full bg-blzs-teal"></div>} 
           </li>
 
           {/* divider */}
@@ -173,7 +178,9 @@ const Navbar: React.FC = () => {
 
           <li
           onClick={()=>{handleSmoothScroll("contact", 100)}}
-          className="cursor-pointer">KAPCSOLAT</li>
+          className="cursor-pointer">KAPCSOLAT
+          {activeLink === "contact" && <div className="bg-blzs-teal h-1 w-full rounded-full"></div>}
+          </li>
 
           {/* divider */}
           {/* <div className="h-5 w-0.5 bg-gray-500"></div> */}

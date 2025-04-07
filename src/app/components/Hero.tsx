@@ -6,12 +6,30 @@ import Image from "next/image";
 import Link from 'next/link';
 import { useTransitionRouter } from 'next-view-transitions';
 import {animateRight,animateDown,animateLeft} from "../utils/animationUtils"
+import { useRef, useEffect } from 'react';
+import { useInView } from "motion/react";
 
-const Hero = () => {
+interface HeroProps {
+  setActiveLink: React.Dispatch<React.SetStateAction<string>>; 
+}
+
+const Hero: React.FC<HeroProps> = ({setActiveLink}) => {
   const router = useTransitionRouter();
 
+  const myRef = useRef<HTMLDivElement>(null)
+  const inView = useInView(myRef, {amount: 0.9})
+
+  useEffect(()=>{
+    
+    if(inView){
+      setActiveLink("home")
+    }
+  },[inView])
+
   return (
-    <div className='pb-30 min-h-[100svh] flex flex-col items-center justify-center'>
+    <section className='pb-30 min-h-[100svh] flex flex-col items-center justify-center'
+    ref={myRef}
+    >
         
         <motion.div className="flex flex-col items-center justify-center mt-35 md:mt-30 text-center mb-20 md:mb-32"
          whileHover="hover"
@@ -129,7 +147,7 @@ const Hero = () => {
        
       </div>
 
-    </div>
+    </section>
   )
 }
 export default Hero

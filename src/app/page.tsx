@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [preloaderWatched, setPreloaderWatched] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
+  const [activeLink, setActiveLink] = useState("home")
 
   useEffect(() => {
     const watched = sessionStorage.getItem("preloaderWatched");
@@ -23,13 +24,13 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center overflow-x-hidden bg-white">
-      <Navbar />
+      <Navbar activeLink={activeLink} />
       {!preloaderWatched && <Preloader setIsVisible={setIsVisible} isVisible={isVisible} />}
 
       {/* Logo Container */}
-      <Hero/>
-      <About/>
-      <Contact/>
+      <Hero setActiveLink={setActiveLink}/>
+      <About setActiveLink={setActiveLink}/>
+      <Contact setActiveLink={setActiveLink}/>
     </div>
   );
 }
