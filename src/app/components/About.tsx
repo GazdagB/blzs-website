@@ -34,7 +34,8 @@ const itemVariants = {
 const About = () => {
   return (
     <section
-      className="w-[100svw] flex items-center justify-center py-20"
+    id="about"
+      className="w-[100svw] flex items-center justify-center py-20 scroll-offset"
       style={{ backgroundImage: "url(/bg-teal.png)" }}
     >
       <div className="lg:w-[1200px] px-10 flex flex-col md:flex-row md:gap-15 lg:gap-30 justify-center items-center">

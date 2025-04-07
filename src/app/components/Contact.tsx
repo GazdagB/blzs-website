@@ -95,7 +95,9 @@ const Contact = () => {
 
     
   return (
-    <div className="py-20 flex-col lg:flex-row  px-10 flex lg:gap-28 xl:gap-48">
+    <section
+    id="contact"
+    className="py-20 flex-col lg:flex-row  px-10 flex lg:gap-28 xl:gap-48">
       <h2 className="text-5xl font-black text-blzs-teal block lg:hidden">
         KAPCSOLAT
       </h2>
@@ -338,7 +340,7 @@ const Contact = () => {
           </button>
         </motion.div>
       </motion.form>
-    </div>
+    </section>
   );
 };
 

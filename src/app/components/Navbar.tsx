@@ -4,17 +4,50 @@ import React, { useState, useEffect } from "react";
 import Hamburger from "hamburger-react";
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
-import { useTransitionRouter } from 'next-view-transitions';
+import { useTransitionRouter } from "next-view-transitions";
 import { FaCaretDown } from "react-icons/fa";
-import Link from "next/link"
-import {animate} from "../utils/animationUtils"
+import Link from "next/link";
+import { animate } from "../utils/animationUtils";
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [flyOutOpen, setFlyOutOpen] = useState(false)
+  const [flyOutOpen, setFlyOutOpen] = useState(false);
 
   const router = useTransitionRouter();
-  
+
+  const handleSmoothScroll = (targetId: string, offset: number) => {
+    const target = document.getElementById(targetId);
+    if (target) {
+      const headerOffset = offset;
+      const elementPosition =
+        target.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - headerOffset;
+
+      //If Mobile Navbar is open
+      if (isOpen) {
+        //Close It 
+        setIsOpen(false);
+        // After 300ms scroll to position
+        setTimeout(() => {
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }, 300);
+
+        //Esc the function 
+        return;
+      }
+
+      //Else just scroll to the target immidiatly 
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+
+    }
+  };
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden"; // Disable scrolling
@@ -49,78 +82,126 @@ const Navbar: React.FC = () => {
         </div>
 
         <ul className="hidden lg:flex items-center gap-7">
-
           <div className="relative">
-            <li onClick={()=>{setFlyOutOpen(prev => !prev)}} className="flex items-center justify-center gap-2 cursor-pointer">
-            <FaCaretDown className={`${flyOutOpen ? "rotate-180": ""} transition-all duration-300`} />
-            SZAKTERÜLET</li>
+            <li
+              onClick={() => {
+                setFlyOutOpen((prev) => !prev);
+              }}
+              className="flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <FaCaretDown
+                className={`${
+                  flyOutOpen ? "rotate-180" : ""
+                } transition-all duration-300`}
+              />
+              SZAKTERÜLET
+            </li>
 
             <AnimatePresence>
-            {flyOutOpen && (
-              <motion.div
-              initial={{y: -20, opacity: 0, height: 0}}
-              animate={{y:0, opacity: 1, height: 200}}
-              exit={{y: -20, opacity: 0, height: 0}}
-              className="bg-white flex flex-col items-center justify-center backdrop-blur-lg shadow-md rounded-md h-20 w-50 absolute top-15">
-                <div>
-                  <Link
-                  onClick={(e )=>{
-                            e.preventDefault();
-                            router.push('/design',{
-                              onTransitionReady: ()=>{animate("left")}
-                            })
-                          }}
-                  href={"/design"} className="cursor-pointer">GRAPHIC DESIGN</Link>
-                  <div className="h-[2px] w-full bg-blzs-teal my-2"></div>
-                  <Link 
-                  onClick={(e )=>{
-                    e.preventDefault();
-                    router.push('/art',{
-                      onTransitionReady: ()=>{animate("down")}
-                    })
-                  }}
-                  href={"/art"} className="cursor-pointer">DIGITAL ART</Link>
-                  <div className="h-[2px] w-full bg-blzs-teal my-2"></div>
-                  <Link
-                  onClick={(e )=>{
-                    e.preventDefault();
-                    router.push('/print',{
-                      onTransitionReady: ()=>{animate("right")}
-                    })
-                  }}
-                  href={"print"} className="cursor-pointer">DIGITAL PRINT</Link>
-                </div>
-              </motion.div>)}
+              {flyOutOpen && (
+                <motion.div
+                  initial={{ y: -20, opacity: 0, height: 0 }}
+                  animate={{ y: 0, opacity: 1, height: 200 }}
+                  exit={{ y: -20, opacity: 0, height: 0 }}
+                  className="bg-white flex flex-col items-center justify-center backdrop-blur-lg shadow-md rounded-md h-20 w-50 absolute top-15"
+                >
+                  <div>
+                    <Link
+                      onClick={(e) => {
+                        e.preventDefault();
+                        router.push("/design", {
+                          onTransitionReady: () => {
+                            animate("left");
+                          },
+                        });
+                      }}
+                      href={"/design"}
+                      className="cursor-pointer"
+                    >
+                      GRAPHIC DESIGN
+                    </Link>
+                    <div className="h-[2px] w-full bg-blzs-teal my-2"></div>
+                    <Link
+                      onClick={(e) => {
+                        e.preventDefault();
+                        router.push("/art", {
+                          onTransitionReady: () => {
+                            animate("down");
+                          },
+                        });
+                      }}
+                      href={"/art"}
+                      className="cursor-pointer"
+                    >
+                      DIGITAL ART
+                    </Link>
+                    <div className="h-[2px] w-full bg-blzs-teal my-2"></div>
+                    <Link
+                      onClick={(e) => {
+                        e.preventDefault();
+                        router.push("/print", {
+                          onTransitionReady: () => {
+                            animate("right");
+                          },
+                        });
+                      }}
+                      href={"print"}
+                      className="cursor-pointer"
+                    >
+                      DIGITAL PRINT
+                    </Link>
+                  </div>
+                </motion.div>
+              )}
             </AnimatePresence>
           </div>
 
-           {/* divider */}
-           <div className="h-5 w-0.5 bg-gray-500"></div>
+          {/* divider */}
+          <div className="h-5 w-0.5 bg-gray-500"></div>
 
-          <li className="cursor-pointer">RÓLAM</li>
+          <li
+            onClick={() => {
+              handleSmoothScroll("about", 150);
+            }}
+            className="cursor-pointer"
+          >
+            RÓLAM
+          </li>
 
           {/* divider */}
           <div className="h-5 w-0.5 bg-gray-500"></div>
 
-          <li className="cursor-pointer">KAPCSOLAT</li>
+          <li
+          onClick={()=>{handleSmoothScroll("contact", 100)}}
+          className="cursor-pointer">KAPCSOLAT</li>
 
           {/* divider */}
-          <div className="h-5 w-0.5 bg-gray-500"></div>
+          {/* <div className="h-5 w-0.5 bg-gray-500"></div> */}
 
-          <li className="cursor-pointer" >BLOG</li>
+          {/* <li className="cursor-pointer">BLOG</li> */}
         </ul>
       </motion.nav>
 
-        {/* Menu Navbar Animated  */}
+      {/* Menu Navbar Animated  */}
       <motion.div
         className="lg:hidden w-[100svw] flex flex-col items-center justify-center h-[100vh] fixed top-0 right-0 z-0 bg-white"
         initial={{ y: "-100%" }}
         animate={isOpen ? { y: 0 } : {}}
-        transition={{duration: .7 , type: "spring"}}
+        transition={{ duration: 0.7, type: "spring" }}
       >
         <ul className="text-xl text-blzs-teal flex flex-col gap-2.5 justify-center items-center">
-          <li>RÓLAM</li>
-          <li>KAPCSOLAT</li>
+          <li
+            onClick={() => {
+              handleSmoothScroll("about", 100);
+            }}
+          >
+            RÓLAM
+          </li>
+          <li
+          onClick={()=>{
+            handleSmoothScroll("contact", 100)
+          }}
+          >KAPCSOLAT</li>
           <li>BLOG</li>
         </ul>
         <div className="h-[1.5px] w-40 bg-blzs-teal my-5"></div>
@@ -131,9 +212,24 @@ const Navbar: React.FC = () => {
         </ul>
 
         <div className="flex items-center gap-4">
-        <Image src={"/icons/instagram-teal.png"} width={30} height={30} alt="TikTok Icon"/>
-        <Image src={"/icons/linkedin-teal.png"} width={30} height={30} alt="TikTok Icon"/>
-        <Image src={"/icons/tiktok-teal.png"} width={30} height={30} alt="TikTok Icon"/>
+          <Image
+            src={"/icons/instagram-teal.png"}
+            width={30}
+            height={30}
+            alt="TikTok Icon"
+          />
+          <Image
+            src={"/icons/linkedin-teal.png"}
+            width={30}
+            height={30}
+            alt="TikTok Icon"
+          />
+          <Image
+            src={"/icons/tiktok-teal.png"}
+            width={30}
+            height={30}
+            alt="TikTok Icon"
+          />
         </div>
       </motion.div>
     </>
