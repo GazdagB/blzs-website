@@ -10,10 +10,10 @@ import Link from "next/link";
 import { animate } from "../utils/animationUtils";
 
 interface NavbarTypes {
-  activeLink: string
+  activeLink: string;
 }
 
-const Navbar: React.FC<NavbarTypes> = ({activeLink}) => {
+const Navbar: React.FC<NavbarTypes> = ({ activeLink }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [flyOutOpen, setFlyOutOpen] = useState(false);
 
@@ -29,7 +29,7 @@ const Navbar: React.FC<NavbarTypes> = ({activeLink}) => {
 
       //If Mobile Navbar is open
       if (isOpen) {
-        //Close It 
+        //Close It
         setIsOpen(false);
         // After 300ms scroll to position
         setTimeout(() => {
@@ -39,16 +39,15 @@ const Navbar: React.FC<NavbarTypes> = ({activeLink}) => {
           });
         }, 300);
 
-        //Esc the function 
+        //Esc the function
         return;
       }
 
-      //Else just scroll to the target immidiatly 
+      //Else just scroll to the target immidiatly
       window.scrollTo({
         top: offsetPosition,
         behavior: "smooth",
       });
-
     }
   };
 
@@ -170,16 +169,24 @@ const Navbar: React.FC<NavbarTypes> = ({activeLink}) => {
             className="cursor-pointer"
           >
             RÓLAM
-            {activeLink === "about" && <div className="w-full h-1 rounded-full bg-blzs-teal"></div>} 
+            {activeLink === "about" && (
+              <div className="w-full h-1 rounded-full bg-blzs-teal"></div>
+            )}
           </li>
 
           {/* divider */}
           <div className="h-5 w-0.5 bg-gray-500"></div>
 
           <li
-          onClick={()=>{handleSmoothScroll("contact", 100)}}
-          className="cursor-pointer">KAPCSOLAT
-          {activeLink === "contact" && <div className="bg-blzs-teal h-1 w-full rounded-full"></div>}
+            onClick={() => {
+              handleSmoothScroll("contact", 100);
+            }}
+            className="cursor-pointer"
+          >
+            KAPCSOLAT
+            {activeLink === "contact" && (
+              <div className="bg-blzs-teal h-1 w-full rounded-full"></div>
+            )}
           </li>
 
           {/* divider */}
@@ -201,15 +208,21 @@ const Navbar: React.FC<NavbarTypes> = ({activeLink}) => {
             onClick={() => {
               handleSmoothScroll("about", 100);
             }}
+            className="cursor-pointer"
           >
             RÓLAM
           </li>
           <li
-          onClick={()=>{
-            handleSmoothScroll("contact", 100)
-          }}
-          >KAPCSOLAT</li>
-          <li>BLOG</li>
+            onClick={() => {
+              handleSmoothScroll("contact", 100);
+            }}
+            className="cursor-pointer"
+          >
+            KAPCSOLAT
+          </li>
+          {/* <li
+          className="cursor-pointer"
+          >BLOG</li> */}
         </ul>
         <div className="h-[1.5px] w-40 bg-blzs-teal my-5"></div>
         <ul className="text-xl text-blzs-teal flex flex-col gap-2.5 justify-center items-center mb-10">
