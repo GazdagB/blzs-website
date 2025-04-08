@@ -7,77 +7,97 @@ import Image from "next/image";
 import { useTransitionRouter } from "next-view-transitions";
 import { FaCaretDown } from "react-icons/fa";
 import Link from "next/link";
-import { animate} from "../utils/animationUtils";
+import { animate } from "../utils/animationUtils";
 
 interface NavbarTypes {
   activeLink: string;
 }
 
+type SmoothScrollLink = {
+  type: "smoothScroll";
+  text: string;
+  name: string;
+  href: string;
+};
+
+type PageTransitionLink = {
+  type: "pageTransition";
+  text: string;
+  name: string;
+  href: string;
+  direction: "left" | "right" | "down";
+};
+
+type NavLink = SmoothScrollLink | PageTransitionLink;
+
 const Navbar: React.FC<NavbarTypes> = ({ activeLink }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [flyOutOpen, setFlyOutOpen] = useState(false);
 
-  const links = [
+  const links: NavLink[] = [
     {
       type: "smoothScroll",
       text: "rólam",
       name: "about",
-      href: "/about"
+      href: "/about",
     },
     {
       type: "smoothScroll",
       text: "kapcsolat",
       name: "contact",
-      href: "/contact"
+      href: "/contact",
     },
     {
       type: "pageTransition",
       text: "graphic design",
       name: "design",
       href: "/design",
-      direction: "left"
+      direction: "left",
     },
     {
       type: "pageTransition",
       text: "digital art",
       name: "art",
       href: "/art",
-      direction: "down"
+      direction: "down",
     },
     {
       type: "pageTransition",
       text: "digital print",
-      name: "print",
+      name: "digital print",
       href: "/print",
-      direction: "right"
+      direction: "right",
     },
-  ]
+  ];
 
-  
-const router = useTransitionRouter();
+  const router = useTransitionRouter();
 
-const handleChangePage = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, destination: string, direction: "left"| "down" | "right")=>{
-  e.preventDefault(); 
+  const handleChangePage = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    destination: string,
+    direction: "left" | "down" | "right"
+  ) => {
+    e.preventDefault();
 
-  if(isOpen){
-    setIsOpen(false)
-    setTimeout(()=>{
-      router.push(destination , {
-        onTransitionReady: () => {
-          animate(direction);
-        },
-      });
-    }, 300)
-  
-    return;
-  }
+    if (isOpen) {
+      setIsOpen(false);
+      setTimeout(() => {
+        router.push(destination, {
+          onTransitionReady: () => {
+            animate(direction);
+          },
+        });
+      }, 300);
 
-  router.push(destination , {
-    onTransitionReady: () => {
-      animate(direction);
-    },
-  });
-}
+      return;
+    }
+
+    router.push(destination, {
+      onTransitionReady: () => {
+        animate(direction);
+      },
+    });
+  };
 
   const handleSmoothScroll = (targetId: string, offset: number) => {
     const target = document.getElementById(targetId);
@@ -144,6 +164,7 @@ const handleChangePage = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, de
           />
         </div>
 
+        {/* Navbar List */}
         <ul className="hidden lg:flex items-center gap-7">
           <div className="relative">
             <li
@@ -169,92 +190,84 @@ const handleChangePage = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, de
                   className="bg-white flex flex-col items-center justify-center backdrop-blur-lg shadow-md rounded-md h-20 w-50 absolute top-15"
                 >
                   <div>
-                    <Link
-                      onClick={(e)=>{handleChangePage(e,"/design", "left")}}
-                      href={"/design"}
-                      className="cursor-pointer"
-                    >
-                      GRAPHIC DESIGN
-                    </Link>
-                    <div className="h-[2px] w-full bg-blzs-teal my-2"></div>
-                    <Link
-                      onClick={(e) => {handleChangePage(e, "/art", "down")}}
-                      href={"/art"}
-                      className="cursor-pointer"
-                    >
-                      DIGITAL ART
-                    </Link>
-                    <div className="h-[2px] w-full bg-blzs-teal my-2"></div>
-                    <Link
-                      onClick={(e) => {handleChangePage(e, "/print", "right")}}
-                      href={"/print"}
-                      className="cursor-pointer"
-                    >
-                      DIGITAL PRINT
-                    </Link>
+                    {/* Fly out links */}
+                    {links.map((link, id) => {
+                      const isLast = id === links.length - 1;
+
+                      if (link.type === "pageTransition" && link.direction) {
+                        if (isLast) {
+                          return (
+                            <Link
+                              onClick={(e) => {
+                                handleChangePage(e, link.href, link.direction);
+                              }}
+                              key={id}
+                              href={link.href}
+                            >
+                              {link.name.toUpperCase()}
+                            </Link>
+                          );
+                        } else {
+                          return (
+                            <>
+                              <Link
+                                onClick={(e) => {
+                                  handleChangePage(
+                                    e,
+                                    link.href,
+                                    link.direction
+                                  );
+                                }}
+                                key={id}
+                                href={link.href}
+                              >
+                                {link.text.toUpperCase()}
+                              </Link>
+                              <div className="h-[2px] w-full bg-blzs-teal my-2"></div>
+                            </>
+                          );
+                        }
+                      }
+                    })}
                   </div>
                 </motion.div>
               )}
             </AnimatePresence>
           </div>
-
-          {/* divider */}
-          <div className="h-5 w-0.5 bg-gray-500"></div>
-
-        
-
-           <li
-            onClick={() => {
-              handleSmoothScroll("about", 150);
-            }}
-            className="cursor-pointer flex flex-col items-center justify-center"
-          >
-            <div className="h-7 w-full flex flex-col items-center">
-              RÓLAM
-              <AnimatePresence>
-              {activeLink === "about" && (
-                <motion.div
-                initial={{width: 0}}
-                animate={{width: "100%"}}
-                exit={{width: 0}}
-                className="w-full h-1 rounded-full bg-blzs-teal origin-center"></motion.div>
-              )}
-              </AnimatePresence>
-            </div>
-            
-          </li>
-
-          {/* divider */}
-          <div className="h-5 w-0.5 bg-gray-500"></div>
-
-          <li
-            onClick={() => {
-              handleSmoothScroll("contact", 100);
-            }}
-            className="cursor-pointer flex flex-col items-center justify-start"
-          >
-            <div className="h-7 flex flex-col items-center w-full">
-              KAPCSOLAT
-              <AnimatePresence>
-                {activeLink === "contact" && (
-                  <motion.div
-                  initial={{width: 0}}
-                  animate={{width: "100%"}}
-                  exit={{width: 0}}
-                  className="bg-blzs-teal h-1 w-full rounded-full"></motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </li> 
-
-          {/* divider */}
-          {/* <div className="h-5 w-0.5 bg-gray-500"></div> */}
-
-          {/* <li className="cursor-pointer">BLOG</li> */}
+          {links.map((link, id) => {
+            if (link.type === "smoothScroll") {
+              return (
+                <>
+                  <div className="h-5 w-0.5 bg-gray-500"></div>
+                  <li
+                    key={id}
+                    onClick={() => {
+                      handleSmoothScroll(link.name, 150);
+                    }}
+                    className="cursor-pointer flex flex-col items-center justify-center"
+                  >
+                    <div className="h-7 w-full flex flex-col items-center">
+                      {link.text.toUpperCase()}
+                      <AnimatePresence>
+                        {activeLink === link.name && (
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: "100%" }}
+                            exit={{ width: 0 }}
+                            className="w-full h-1 rounded-full bg-blzs-teal origin-center"
+                          ></motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </li>
+                </>
+              );
+            }
+          })}
         </ul>
       </motion.nav>
 
-      {/* Menu Navbar Animated  */}
+      {/* Menu Navbar Animated Mobile */}
       <motion.div
         className="lg:hidden w-[100svw] flex flex-col items-center justify-center h-[100vh] fixed top-0 right-0 z-0 bg-white"
         initial={{ y: "-100%" }}
@@ -285,17 +298,29 @@ const handleChangePage = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, de
         <div className="h-[1.5px] w-40 bg-blzs-teal my-5"></div>
         <ul className="text-xl text-blzs-teal flex flex-col gap-2.5 justify-center items-center mb-10">
           <Link
-          onClick={(e)=>{handleChangePage(e,"/design", "left")}}
-          href={"/design"}
-          >DESIGN</Link>
+            onClick={(e) => {
+              handleChangePage(e, "/design", "left");
+            }}
+            href={"/design"}
+          >
+            DESIGN
+          </Link>
           <Link
-          onClick={(e)=>{handleChangePage(e,"/art", "down")}}
-          href={"/art"}
-          >ART</Link>
+            onClick={(e) => {
+              handleChangePage(e, "/art", "down");
+            }}
+            href={"/art"}
+          >
+            ART
+          </Link>
           <Link
-          onClick={(e)=>{handleChangePage(e,"/print", "down")}}
-          href={"/print"}
-          >PRINT</Link>
+            onClick={(e) => {
+              handleChangePage(e, "/print", "down");
+            }}
+            href={"/print"}
+          >
+            PRINT
+          </Link>
         </ul>
 
         <div className="flex items-center gap-4">
