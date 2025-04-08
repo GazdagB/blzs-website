@@ -17,6 +17,42 @@ const Navbar: React.FC<NavbarTypes> = ({ activeLink }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [flyOutOpen, setFlyOutOpen] = useState(false);
 
+  const links = [
+    {
+      type: "smoothScroll",
+      text: "rólam",
+      name: "about",
+      href: "/about"
+    },
+    {
+      type: "smoothScroll",
+      text: "kapcsolat",
+      name: "contact",
+      href: "/contact"
+    },
+    {
+      type: "pageTransition",
+      text: "graphic design",
+      name: "design",
+      href: "/design",
+      direction: "left"
+    },
+    {
+      type: "pageTransition",
+      text: "digital art",
+      name: "art",
+      href: "/art",
+      direction: "down"
+    },
+    {
+      type: "pageTransition",
+      text: "digital print",
+      name: "print",
+      href: "/print",
+      direction: "right"
+    },
+  ]
+
   
 const router = useTransitionRouter();
 
@@ -165,7 +201,9 @@ const handleChangePage = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, de
           {/* divider */}
           <div className="h-5 w-0.5 bg-gray-500"></div>
 
-          <li
+        
+
+           <li
             onClick={() => {
               handleSmoothScroll("about", 150);
             }}
@@ -207,7 +245,7 @@ const handleChangePage = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, de
                 )}
               </AnimatePresence>
             </div>
-          </li>
+          </li> 
 
           {/* divider */}
           {/* <div className="h-5 w-0.5 bg-gray-500"></div> */}

@@ -76,7 +76,7 @@ const About: React.FC<AboutProps> = ({setActiveLink}) => {
             RÓLAM.
           </motion.h2>
 
-          <motion.p variants={itemVariants} className="text-white md:w-96 text-pretty text-md lg:text-xl md:max-w-2xl">
+          <motion.p variants={itemVariants} className="text-white text-pretty md:w-96 text-md lg:text-xl md:max-w-2xl">
             Több mint 10 éves tapasztalattal rendelkezem, amit a reklámipar számos területén kamatoztatok. Célom, hogy elmélyedjek a tipográfia és tervezőgrafika világában, és kreatív művészeti készségeimet ötvözzem a dizájnban. Mindig igyekszem újabb és újabb kihívások elé állítani magam, hogy fejlődjek és minél kreatívabb munkákat hozhassak létre.
           </motion.p>
 
