@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import {ViewTransitions} from "next-view-transitions";
 import Footer from "./components/Footer";
+import CaseStudy from "./components/CaseStudy";
 
 
 
@@ -35,6 +36,7 @@ export default function RootLayout({
         <body  lang="hu" className="flex flex-col min-h-screen">
           <main className="w-[100vw]">{children}</main>
           <Footer />
+          <CaseStudy></CaseStudy>
         </body>
       </html>
     </ViewTransitions>

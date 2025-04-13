@@ -147,7 +147,7 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
               
-              <Polaroid src={src} />
+              <Polaroid width={450} height={450} src={src} />
             </motion.div>
           );
         })}
