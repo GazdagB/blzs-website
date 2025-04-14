@@ -3,16 +3,11 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import {ViewTransitions} from "next-view-transitions";
 import Footer from "./components/Footer";
-import CaseStudy from "./components/CaseStudy";
-
-
 
 const montserrat = Montserrat({
   subsets: ["latin"], 
   variable: "--font-montserrat", 
 });
-
-
 
 export const metadata: Metadata = {
   title: "BLZS Studio",
@@ -33,10 +28,9 @@ export default function RootLayout({
   return (
     <ViewTransitions>
       <html lang="en" className={`${montserrat.variable} overflow-x-hidden`}>
-        <body  lang="hu" className="flex flex-col min-h-screen">
+        <body lang="hu" className="flex flex-col min-h-screen">
           <main className="w-[100vw]">{children}</main>
           <Footer />
-          <CaseStudy></CaseStudy>
         </body>
       </html>
     </ViewTransitions>
