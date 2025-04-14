@@ -143,13 +143,9 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
           const rotation = isCenter ? 0 : indexDiff === 1 ? 5 : -5;
             
           return (
-            <a
-              href={`/${image.type}/${image.slug}`} 
+              <motion.div
               key={`${image.slug}`}
               onClick={(e) => handleImageClick(e, `/${image.type}/${image.slug}`, "down")}
-              style={{ textDecoration: 'none' }}
-            >
-              <motion.div
                 className="absolute cursor-pointer"
                 style={{ zIndex: isCenter ? 10 : 1 }}
                 initial={{
@@ -168,7 +164,7 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
               >
                 <Polaroid width={450} height={450} src={image.image} />
               </motion.div>
-            </a>
+         
           );
         })}
       </div>
