@@ -5,27 +5,57 @@ import { motion } from "framer-motion";
 import Polaroid from "./Polaroid";
 import { FaArrowRight } from "react-icons/fa6";
 import { FaArrowLeft } from "react-icons/fa";
+import { CaseStudyType } from "../utils/caseStudies";
+import { useTransitionRouter } from 'next-view-transitions';
+import { animate } from "../utils/animationUtils";
 
 interface caresoulTypes {
-  images: string[]
+  images: CaseStudyType[],
+  type: "design" | "art" | "print"
 }
 
-const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
+const ImageCarousel: React.FC<caresoulTypes> = ({images, type}) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState({
     state: false,
     direction: "left",
   });
-  const [polaroidX,setPolaroidX] = useState(150)
+  const [polaroidX, setPolaroidX] = useState(150);
+
+  let isType = false;
+
+  images.forEach((image) => {
+    if (image.type === type) {
+      isType = true;
+    }
+  })
+
+
+  
+  const router = useTransitionRouter(); 
 
   const totalImages = images.length;
 
-  const handleMouseMove = (e : React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const { left, top } = e.currentTarget.getBoundingClientRect();
     setPosition({
       x: e.clientX - left,
       y: e.clientY - top,
+    });
+  };
+
+  const handleImageClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, destination: string, direction: "left"| "down" | "right") => {
+    e.preventDefault();
+    console.log("Navigating to:", destination);
+    
+    
+    // Use standard anchor navigation with transition
+    router.push(destination, {
+      onTransitionReady: () => {
+                 console.log("Transition ready to animate");
+                 animate(direction);
+               },
     });
   };
 
@@ -54,9 +84,7 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
     };
 
     handleResize();
-
     
-
     window.addEventListener("resize", handleResize);
 
     // Clean up
@@ -65,7 +93,8 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
     };
   }, []);
 
-  
+
+  if (!isType) return null; // If no images of the selected type, return null
 
   return (
     <div
@@ -97,7 +126,7 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
       {/* Image Container */}
       <div className="flex overflow-hidden justify-center items-center h-full relative">
     
-        {images.map((src, index) => {
+        {images.map((image, index) => {
           // Calculate the position relative to the current index
           const indexDiff = (index - currentIndex + totalImages) % totalImages;
 
@@ -126,34 +155,36 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
           const isCenter = indexDiff === 0;
           const scale = isCenter ? 1 : 0.5;
           const rotation = isCenter ? 0 : indexDiff === 1 ? 5 : -5;
-            
+          
+          if(image.type !== type) return null; // Filter images based on type
+
           return (
-            <motion.div
-              key={`${src}-${index}`}
-              className="absolute "
-              style={{ zIndex: isCenter ? 10 : 1 }}
-              initial={{
-                opacity: isVisible ? 1 : 0,
-                x: xPosition,
-                scale,
-                rotate: rotation,
-              }}
-              animate={{
-                x: xPosition,
-                scale,
-                rotate: rotation,
-                opacity: isVisible ? 1 : 0,
-              }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            >
-              
-              <Polaroid src={src} />
-            </motion.div>
+              <motion.div
+              key={`${image.slug}`}
+              onClick={(e) => handleImageClick(e, `/${image.type}/${image.slug}`, "down")}
+                className="absolute cursor-pointer"
+                style={{ zIndex: isCenter ? 10 : 1 }}
+                initial={{
+                  opacity: isVisible ? 1 : 0,
+                  x: xPosition,
+                  scale,
+                  rotate: rotation,
+                }}
+                animate={{
+                  x: xPosition,
+                  scale,
+                  rotate: rotation,
+                  opacity: isVisible ? 1 : 0,
+                }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              >
+                <Polaroid width={450} height={450} src={image.image} />
+              </motion.div>
+         
           );
         })}
       </div>
       
-
       {/* Right Edge Button */}
       <div
         className="h-full w-[30%] top-0 right-0 cursor-pointer absolute z-10"
@@ -162,11 +193,10 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
         onMouseLeave={() => setIsVisible({ state: false, direction: "right" })}
       ></div>
 
-      
-    <div className="lg:hidden flex items-center justify-center gap-5 text-4xl text-blzs-teal">
-          <FaArrowLeft onClick={prevImage}  className="cursor-pointer"></FaArrowLeft>
-          <FaArrowRight onClick={nextImage}  className="cursor-pointer"></FaArrowRight>
-        </div>
+      <div className="lg:hidden flex items-center justify-center gap-5 text-4xl text-blzs-teal">
+        <FaArrowLeft onClick={prevImage} className="cursor-pointer"></FaArrowLeft>
+        <FaArrowRight onClick={nextImage} className="cursor-pointer"></FaArrowRight>
+      </div>
     </div>
   );
 };
