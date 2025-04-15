@@ -189,7 +189,7 @@ const Navbar: React.FC<NavbarTypes> = ({ activeLink }) => {
                   exit={{ y: -20, opacity: 0, height: 0 }}
                   className="bg-white flex flex-col items-center justify-center backdrop-blur-lg shadow-md rounded-md h-20 w-50 absolute top-15"
                 >
-                  <div>
+                  <div >
                     {/* Fly out links */}
                     {links.map((link, id) => {
                       const isLast = id === links.length - 1;
@@ -237,9 +237,9 @@ const Navbar: React.FC<NavbarTypes> = ({ activeLink }) => {
           {links.map((link, id) => {
             if (link.type === "smoothScroll") {
               return (
-                <div key={id}>
+                <div className="flex items-center justify-center" key={id}>
                   
-                    <div className="h-5 w-0.5 bg-gray-500"></div>
+                    <div className="h-5 w-0.5 me-7 bg-gray-500"></div>
                     <li
                       key={id}
                       onClick={() => {
