@@ -12,9 +12,9 @@ A jó tipográfia nem csupán esztétikai elem, hanem az információ átadásá
 
 const Design = () => {
   return (
-    <div className='min-h-[100vh] w-[100vw]  bg-white flex flex-col justify-start items-center pb-10 h-full'>
+    <div className='min-h-[100vh] w-[100vw]  bg-white flex flex-col justify-between items-center pb-10 h-full'>
       <TypeHeader direction="right" bodyText={bodyText} header='design' subHeader='graphic' />
-      <ImageCaresoul images={caseStudies}></ImageCaresoul>
+      <ImageCaresoul type='design' images={caseStudies}></ImageCaresoul>
       <BackToHome animationDirection='right'/>
     </div>
   )

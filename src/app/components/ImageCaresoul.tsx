@@ -7,14 +7,14 @@ import { FaArrowRight } from "react-icons/fa6";
 import { FaArrowLeft } from "react-icons/fa";
 import { CaseStudyType } from "../utils/caseStudies";
 import { useTransitionRouter } from 'next-view-transitions';
-import {Link} from "next-view-transitions"
 import { animate } from "../utils/animationUtils";
 
 interface caresoulTypes {
   images: CaseStudyType[],
+  type: "design" | "art" | "print"
 }
 
-const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
+const ImageCarousel: React.FC<caresoulTypes> = ({images, type}) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState({
@@ -22,6 +22,16 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
     direction: "left",
   });
   const [polaroidX, setPolaroidX] = useState(150);
+
+  let isType = false;
+
+  images.forEach((image) => {
+    if (image.type === type) {
+      isType = true;
+    }
+  })
+
+
   
   const router = useTransitionRouter(); 
 
@@ -38,6 +48,7 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
   const handleImageClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, destination: string, direction: "left"| "down" | "right") => {
     e.preventDefault();
     console.log("Navigating to:", destination);
+    
     
     // Use standard anchor navigation with transition
     router.push(destination, {
@@ -81,6 +92,9 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+
+  if (!isType) return null; // If no images of the selected type, return null
 
   return (
     <div
@@ -141,7 +155,9 @@ const ImageCarousel: React.FC<caresoulTypes> = ({images}) => {
           const isCenter = indexDiff === 0;
           const scale = isCenter ? 1 : 0.5;
           const rotation = isCenter ? 0 : indexDiff === 1 ? 5 : -5;
-            
+          
+          if(image.type !== type) return null; // Filter images based on type
+
           return (
               <motion.div
               key={`${image.slug}`}
