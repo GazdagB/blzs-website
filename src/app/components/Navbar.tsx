@@ -237,30 +237,31 @@ const Navbar: React.FC<NavbarTypes> = ({ activeLink }) => {
           {links.map((link, id) => {
             if (link.type === "smoothScroll") {
               return (
-                <>
-                  <div className="h-5 w-0.5 bg-gray-500"></div>
-                  <li
-                    key={id}
-                    onClick={() => {
-                      handleSmoothScroll(link.name, 150);
-                    }}
-                    className="cursor-pointer flex flex-col items-center justify-center"
-                  >
-                    <div className="h-7 w-full flex flex-col items-center">
-                      {link.text.toUpperCase()}
-                      <AnimatePresence>
-                        {activeLink === link.name && (
-                          <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: "100%" }}
-                            exit={{ width: 0 }}
-                            className="w-full h-1 rounded-full bg-blzs-teal origin-center"
-                          ></motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  </li>
-                </>
+                <div key={id}>
+                  
+                    <div className="h-5 w-0.5 bg-gray-500"></div>
+                    <li
+                      key={id}
+                      onClick={() => {
+                        handleSmoothScroll(link.name, 150);
+                      }}
+                      className="cursor-pointer flex flex-col items-center justify-center"
+                    >
+                      <div className="h-7 w-full flex flex-col items-center">
+                        {link.text.toUpperCase()}
+                        <AnimatePresence>
+                          {activeLink === link.name && (
+                            <motion.div
+                              initial={{ width: 0 }}
+                              animate={{ width: "100%" }}
+                              exit={{ width: 0 }}
+                              className="w-full h-1 rounded-full bg-blzs-teal origin-center"
+                            ></motion.div>
+                          )}
+                        </AnimatePresence>
+                      </div>
+                    </li>
+                </div>
               );
             }
           })}
